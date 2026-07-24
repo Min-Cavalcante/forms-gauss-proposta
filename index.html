@@ -180,7 +180,7 @@
       color: var(--dark-gray);
     }
     
-    /* RADIO BUTTONS PREMIUM */
+    /* RADIO BUTTONS */
     .radio-group {
       display: flex;
       gap: 15px;
@@ -218,6 +218,12 @@
       border-color: var(--gold);
       background: #fff8dc;
       color: var(--gold);
+    }
+    
+    .radio-option.avulso input[type="radio"]:checked + .radio-label {
+      border-color: #2196F3;
+      background: #E3F2FD;
+      color: #2196F3;
     }
     
     /* SERVIÇOS DINÂMICOS */
@@ -285,6 +291,29 @@
       display: none;
     }
     
+    /* ALERT BOX */
+    .alert-box {
+      background: #FFF3CD;
+      border: 2px solid #FFC107;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: start;
+      gap: 12px;
+    }
+    
+    .alert-box .icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    
+    .alert-box .text {
+      font-size: 14px;
+      color: #856404;
+      line-height: 1.5;
+    }
+    
     /* SUBMIT BUTTON */
     .submit-section {
       margin-top: 40px;
@@ -317,7 +346,6 @@
       transform: translateY(-1px);
     }
     
-    /* LOADING STATE */
     .btn-submit.loading {
       background: #6c757d;
       cursor: not-allowed;
@@ -373,38 +401,63 @@
     <div class="form-content">
       <form id="gaussForm">
         
-        <!-- SEÇÃO 1: INFORMAÇÕES GERAIS -->
+        <!-- ⭐ NOVO: SEÇÃO TIPO DE PROPOSTA -->
         <div class="section">
+          <h2 class="section-title">Tipo de Proposta</h2>
+          
+          <div class="form-group">
+            <label>
+              Selecione o tipo de proposta <span class="required">*</span>
+            </label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="tipoComum" name="tipoCliente" value="Comum" checked>
+                <label for="tipoComum" class="radio-label">Comum</label>
+              </div>
+              <div class="radio-option premium">
+                <input type="radio" id="tipoPremium" name="tipoCliente" value="Premium">
+                <label for="tipoPremium" class="radio-label">★ Premium ★</label>
+              </div>
+              <div class="radio-option avulso">
+                <input type="radio" id="tipoAvulso" name="tipoCliente" value="Avulso">
+                <label for="tipoAvulso" class="radio-label">📋 Só Avulso</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- SEÇÃO 1: INFORMAÇÕES GERAIS -->
+        <div class="section" id="infoGeraisSection">
           <h2 class="section-title">Informações Gerais</h2>
           
           <div class="form-group">
             <label>
               Nome do Cliente <span class="required">*</span>
             </label>
-            <input type="text" name="nomeCliente" required placeholder="Ex: João da Silva Neto">
+            <input type="text" name="nomeCliente" id="nomeCliente" required placeholder="Ex: João da Silva Neto">
           </div>
           
           <div class="form-row">
             <div class="form-group">
               <label>
-                Cidade <span class="required">*</span>
+                Cidade <span class="required" id="cidadeRequired">*</span>
               </label>
-              <input type="text" name="cidade" required placeholder="Ex: Salvador">
+              <input type="text" name="cidade" id="cidade" required placeholder="Ex: Salvador">
             </div>
             
             <div class="form-group">
               <label>
-                Potência do Sistema (kWp) <span class="required">*</span>
+                Potência do Sistema (kWp) <span class="required" id="potenciaRequired">*</span>
               </label>
-              <input type="number" step="0.001" name="potencia" required placeholder="Ex: 3000">
+              <input type="number" step="0.001" name="potencia" id="potencia" required placeholder="Ex: 3000">
             </div>
           </div>
           
           <div class="form-group">
             <label>
-              Quantidade de Placas <span class="required">*</span>
+              Quantidade de Placas <span class="required" id="placasRequired">*</span>
             </label>
-            <input type="number" name="placas" required placeholder="Ex: 1000">
+            <input type="number" name="placas" id="placas" required placeholder="Ex: 1000">
           </div>
         </div>
         
@@ -412,15 +465,16 @@
         <div class="section">
           <h2 class="section-title">Serviços Avulsos</h2>
           
-          <div class="form-group">
-            <div class="checkbox-wrapper">
-              <input type="checkbox" id="servicoAvulso" name="servicoAvulso">
-              <label for="servicoAvulso">Adicionar serviços avulsos à proposta</label>
+          <!-- ALERTA MODO AVULSO -->
+          <div id="alertaAvulso" class="alert-box hidden">
+            <span class="icon">ℹ️</span>
+            <div class="text">
+              <strong>Modo "Apenas Serviço Avulso" ativado!</strong><br>
+              A proposta conterá apenas os serviços avulsos listados abaixo. Adicione pelo menos 1 serviço.
             </div>
           </div>
           
-          <!-- CONTAINER SERVIÇOS DINÂMICOS -->
-          <div id="servicosContainer" class="hidden">
+          <div id="servicosContainer">
             <div id="servicosList"></div>
             <button type="button" class="btn-add-servico" id="btnAddServico">
               + Adicionar Serviço
@@ -428,56 +482,38 @@
           </div>
         </div>
         
-        <!-- SEÇÃO 3: TIPO DE CLIENTE -->
-        <div class="section">
-          <h2 class="section-title">Tipo de Cliente</h2>
+        <!-- SEÇÃO 3: CAMPOS PREMIUM -->
+        <div class="section hidden" id="premiumSection">
+          <h2 class="section-title">Configurações Premium</h2>
           
           <div class="form-group">
             <label>
-              Selecione o tipo de cliente <span class="required">*</span>
+              Terá limpeza programada?
             </label>
             <div class="radio-group">
               <div class="radio-option">
-                <input type="radio" id="tipoComum" name="tipoCliente" value="Comum" required>
-                <label for="tipoComum" class="radio-label">Comum</label>
+                <input type="radio" id="limpezaNao" name="temLimpeza" value="Não" checked>
+                <label for="limpezaNao" class="radio-label">Não</label>
               </div>
-              <div class="radio-option premium">
-                <input type="radio" id="tipoPremium" name="tipoCliente" value="Premium">
-                <label for="tipoPremium" class="radio-label">★ Premium ★</label>
+              <div class="radio-option">
+                <input type="radio" id="limpezaSim" name="temLimpeza" value="Sim">
+                <label for="limpezaSim" class="radio-label">Sim</label>
               </div>
             </div>
           </div>
           
-          <!-- CAMPOS PREMIUM -->
-          <div id="premiumFields" class="hidden fade-in">
-            <div class="form-group">
-              <label>
-                Terá limpeza programada?
-              </label>
-              <div class="radio-group">
-                <div class="radio-option">
-                  <input type="radio" id="limpezaNao" name="temLimpeza" value="Não" checked>
-                  <label for="limpezaNao" class="radio-label">Não</label>
-                </div>
-                <div class="radio-option">
-                  <input type="radio" id="limpezaSim" name="temLimpeza" value="Sim">
-                  <label for="limpezaSim" class="radio-label">Sim</label>
-                </div>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label>
-                Projetos inclusos no pacote Premium
-              </label>
-              <textarea 
-                name="projetosInclusos" 
-                placeholder="Liste os projetos separados por vírgula ou ponto e vírgula&#10;Ex: Projeto Residencial ABC, Projeto Comercial XYZ, Instalação Industrial DEF"
-              ></textarea>
-              <small style="color: #6c757d; font-size: 13px;">
-                Separe os projetos por vírgula (,) ou ponto e vírgula (;)
-              </small>
-            </div>
+          <div class="form-group">
+            <label>
+              Projetos inclusos no pacote Premium <span class="required">*</span>
+            </label>
+            <textarea 
+              name="projetosInclusos"
+              id="projetosInclusos"
+              placeholder="Liste os projetos separados por vírgula ou ponto e vírgula&#10;Ex: Projeto Residencial ABC, Projeto Comercial XYZ, Instalação Industrial DEF"
+            ></textarea>
+            <small style="color: #6c757d; font-size: 13px;">
+              Separe os projetos por vírgula (,) ou ponto e vírgula (;)
+            </small>
           </div>
         </div>
         
@@ -498,29 +534,74 @@
     // ==========================================
     let servicoCounter = 0;
     
-    // ==========================================
-    // LÓGICA CONDICIONAL - SERVIÇOS AVULSOS
-    // ==========================================
-    const checkboxServico = document.getElementById('servicoAvulso');
-    const servicosContainer = document.getElementById('servicosContainer');
+    // Elementos
+    const radioComum = document.getElementById('tipoComum');
+    const radioPremium = document.getElementById('tipoPremium');
+    const radioAvulso = document.getElementById('tipoAvulso');
+    
+    const infoGeraisSection = document.getElementById('infoGeraisSection');
+    const premiumSection = document.getElementById('premiumSection');
+    const alertaAvulso = document.getElementById('alertaAvulso');
+    
     const servicosList = document.getElementById('servicosList');
     const btnAddServico = document.getElementById('btnAddServico');
     
-    checkboxServico.addEventListener('change', function() {
-      if (this.checked) {
-        servicosContainer.classList.remove('hidden');
-        servicosContainer.classList.add('fade-in');
-        // Adicionar primeiro serviço automaticamente
+    const camposCidade = document.getElementById('cidade');
+    const camposPotencia = document.getElementById('potencia');
+    const camposPlacas = document.getElementById('placas');
+    const projetosInclusos = document.getElementById('projetosInclusos');
+    
+    // ==========================================
+    // LÓGICA CONDICIONAL - TIPO DE PROPOSTA
+    // ==========================================
+    function atualizarFormulario() {
+      const tipoSelecionado = document.querySelector('input[name="tipoCliente"]:checked').value;
+      
+      if (tipoSelecionado === 'Comum') {
+        // COMUM: Tudo normal
+        infoGeraisSection.classList.remove('hidden');
+        premiumSection.classList.add('hidden');
+        alertaAvulso.classList.add('hidden');
+        
+        camposCidade.required = true;
+        camposPotencia.required = true;
+        camposPlacas.required = true;
+        projetosInclusos.required = false;
+        
+      } else if (tipoSelecionado === 'Premium') {
+        // PREMIUM: Mostra campos premium
+        infoGeraisSection.classList.remove('hidden');
+        premiumSection.classList.remove('hidden');
+        premiumSection.classList.add('fade-in');
+        alertaAvulso.classList.add('hidden');
+        
+        camposCidade.required = true;
+        camposPotencia.required = true;
+        camposPlacas.required = true;
+        projetosInclusos.required = true;
+        
+      } else if (tipoSelecionado === 'Avulso') {
+        // AVULSO: Campos opcionais, força serviços
+        infoGeraisSection.classList.remove('hidden');
+        premiumSection.classList.add('hidden');
+        alertaAvulso.classList.remove('hidden');
+        alertaAvulso.classList.add('fade-in');
+        
+        camposCidade.required = false;
+        camposPotencia.required = false;
+        camposPlacas.required = false;
+        projetosInclusos.required = false;
+        
+        // Adiciona primeiro serviço se não houver
         if (servicoCounter === 0) {
           adicionarServico();
         }
-      } else {
-        servicosContainer.classList.add('hidden');
-        // Limpar todos os serviços
-        servicosList.innerHTML = '';
-        servicoCounter = 0;
       }
-    });
+    }
+    
+    radioComum.addEventListener('change', atualizarFormulario);
+    radioPremium.addEventListener('change', atualizarFormulario);
+    radioAvulso.addEventListener('change', atualizarFormulario);
     
     // ==========================================
     // ADICIONAR SERVIÇO DINÂMICO
@@ -575,34 +656,14 @@
       if (servicoItem) {
         servicoItem.remove();
         
-        // Se não houver mais serviços, desmarcar checkbox
-        if (servicosList.children.length === 0) {
-          checkboxServico.checked = false;
-          servicosContainer.classList.add('hidden');
+        // Se modo avulso e não houver serviços, adiciona um
+        const tipoSelecionado = document.querySelector('input[name="tipoCliente"]:checked').value;
+        if (tipoSelecionado === 'Avulso' && servicosList.children.length === 0) {
           servicoCounter = 0;
+          adicionarServico();
         }
       }
     }
-    
-    // ==========================================
-    // LÓGICA CONDICIONAL - PREMIUM
-    // ==========================================
-    const radioComum = document.getElementById('tipoComum');
-    const radioPremium = document.getElementById('tipoPremium');
-    const premiumFields = document.getElementById('premiumFields');
-    
-    radioComum.addEventListener('change', function() {
-      if (this.checked) {
-        premiumFields.classList.add('hidden');
-      }
-    });
-    
-    radioPremium.addEventListener('change', function() {
-      if (this.checked) {
-        premiumFields.classList.remove('hidden');
-        premiumFields.classList.add('fade-in');
-      }
-    });
     
     // ==========================================
     // SUBMIT FORM
@@ -613,12 +674,19 @@
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       
+      const tipoSelecionado = document.querySelector('input[name="tipoCliente"]:checked').value;
+      
+      // Validação especial para modo Avulso
+      if (tipoSelecionado === 'Avulso' && servicosList.children.length === 0) {
+        alert('⚠️ Adicione pelo menos 1 serviço avulso!');
+        return;
+      }
+      
       // Loading state
       btnSubmit.classList.add('loading');
       btnSubmit.textContent = 'GERANDO PROPOSTA';
       
       try {
-        // Coletar dados do formulário
         const formData = new FormData(form);
         const data = {};
         
@@ -628,24 +696,20 @@
         }
         
         // Processar serviços avulsos
-        if (checkboxServico.checked) {
-          const servicos = [];
-          const servicoItems = servicosList.querySelectorAll('.servico-item');
+        const servicos = [];
+        const servicoItems = servicosList.querySelectorAll('.servico-item');
+        
+        servicoItems.forEach(item => {
+          const id = item.dataset.servicoId;
+          const descricao = formData.get(`servico_${id}_descricao`);
+          const valor = parseFloat(formData.get(`servico_${id}_valor`));
           
-          servicoItems.forEach(item => {
-            const id = item.dataset.servicoId;
-            const descricao = formData.get(`servico_${id}_descricao`);
-            const valor = parseFloat(formData.get(`servico_${id}_valor`));
-            
-            if (descricao && valor) {
-              servicos.push({ descricao, valor });
-            }
-          });
-          
-          data.servicosAvulsos = servicos;
-        } else {
-          data.servicosAvulsos = [];
-        }
+          if (descricao && valor) {
+            servicos.push({ descricao, valor });
+          }
+        });
+        
+        data.servicosAvulsos = servicos;
         
         // Se não for Premium, remover campos
         if (data.tipoCliente !== 'Premium') {
@@ -656,7 +720,7 @@
         console.log('Dados a enviar:', data);
         
         // Enviar para n8n Webhook
-        const response = await fetch('https://n8n.gaussenergia.com.br/webhook/gauss-proposta', {
+        const response = await fetch('https://n8n.gaussenergia.com.br/webhook-test/gauss-proposta', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -672,11 +736,8 @@
           form.reset();
           servicosList.innerHTML = '';
           servicoCounter = 0;
-          servicosContainer.classList.add('hidden');
-          premiumFields.classList.add('hidden');
+          atualizarFormulario();
           
-          // Aqui você pode redirecionar ou baixar o PDF
-          // window.location.href = result.pdfUrl;
         } else {
           throw new Error('Erro ao gerar proposta');
         }
@@ -685,11 +746,13 @@
         console.error('Erro:', error);
         alert('❌ Erro ao gerar proposta. Tente novamente.');
       } finally {
-        // Remover loading state
         btnSubmit.classList.remove('loading');
         btnSubmit.textContent = 'GERAR PROPOSTA';
       }
     });
+    
+    // Inicializar
+    atualizarFormulario();
   </script>
 </body>
 </html>
