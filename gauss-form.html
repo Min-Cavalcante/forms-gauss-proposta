@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposta Pós-Venda - Gauss Energia</title>
+  
+  <!-- Fontes Gauss -->
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --gauss-green: #39B54A;
+      --gold: #D4AF37;
+      --dark-gray: #2C2C2C;
+      --light-gray: #F5F5F5;
+      --border-gray: #E0E0E0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Sora', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      color: var(--dark-gray);
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, var(--gauss-green) 0%, #2d9940 100%);
+      padding: 40px;
+      text-align: center;
+      color: white;
+    }
+    
+    .header h1 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 48px;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+    
+    .header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+    
+    /* FORM */
+    .form-content {
+      padding: 40px;
+    }
+    
+    .section {
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 2px solid var(--light-gray);
+    }
+    
+    .section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    
+    .section-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 24px;
+      color: var(--gauss-green);
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: var(--gauss-green);
+      border-radius: 2px;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark-gray);
+      font-size: 14px;
+    }
+    
+    label .required {
+      color: #dc3545;
+      margin-left: 3px;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border-gray);
+      border-radius: 8px;
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      background: white;
+    }
+    
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--gauss-green);
+      box-shadow: 0 0 0 3px rgba(57, 181, 74, 0.1);
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    
+    /* CHECKBOX CUSTOM */
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding: 16px;
+      background: var(--light-gray);
+      border-radius: 8px;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+    
+    .checkbox-wrapper:hover {
+      background: #e8f5e9;
+      border-color: var(--gauss-green);
+    }
+    
+    .checkbox-wrapper input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      accent-color: var(--gauss-green);
+    }
+    
+    .checkbox-wrapper label {
+      margin: 0;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--dark-gray);
+    }
+    
+    /* RADIO BUTTONS PREMIUM */
+    .radio-group {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .radio-option {
+      flex: 1;
+      position: relative;
+    }
+    
+    .radio-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+    }
+    
+    .radio-label {
+      display: block;
+      padding: 16px 24px;
+      border: 2px solid var(--border-gray);
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: white;
+    }
+    
+    .radio-option input[type="radio"]:checked + .radio-label {
+      border-color: var(--gauss-green);
+      background: #e8f5e9;
+      color: var(--gauss-green);
+    }
+    
+    .radio-option.premium input[type="radio"]:checked + .radio-label {
+      border-color: var(--gold);
+      background: #fff8dc;
+      color: var(--gold);
+    }
+    
+    /* SERVIÇOS DINÂMICOS */
+    .servico-item {
+      background: var(--light-gray);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border-left: 4px solid var(--gauss-green);
+    }
+    
+    .servico-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .servico-numero {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 20px;
+      color: var(--gauss-green);
+    }
+    
+    .btn-remove-servico {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-remove-servico:hover {
+      background: #c82333;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+    }
+    
+    .btn-add-servico {
+      background: var(--gauss-green);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 15px;
+    }
+    
+    .btn-add-servico:hover {
+      background: #2d9940;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(57, 181, 74, 0.3);
+    }
+    
+    /* HIDDEN */
+    .hidden {
+      display: none;
+    }
+    
+    /* SUBMIT BUTTON */
+    .submit-section {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 2px solid var(--light-gray);
+    }
+    
+    .btn-submit {
+      width: 100%;
+      padding: 18px 32px;
+      background: linear-gradient(135deg, var(--gauss-green) 0%, #2d9940 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Bebas Neue', cursive;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(57, 181, 74, 0.3);
+    }
+    
+    .btn-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(57, 181, 74, 0.4);
+    }
+    
+    .btn-submit:active {
+      transform: translateY(-1px);
+    }
+    
+    /* LOADING STATE */
+    .btn-submit.loading {
+      background: #6c757d;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    
+    .btn-submit.loading::after {
+      content: '⏳';
+      margin-left: 10px;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .header h1 {
+        font-size: 36px;
+      }
+      
+      .form-content {
+        padding: 30px 20px;
+      }
+    }
+    
+    /* ANIMATIONS */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .fade-in {
+      animation: slideIn 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <div class="header">
+      <h1>GAUSS ENERGIA</h1>
+      <p>Proposta de Pós-Venda</p>
+    </div>
+    
+    <!-- FORM -->
+    <div class="form-content">
+      <form id="gaussForm">
+        
+        <!-- SEÇÃO 1: INFORMAÇÕES GERAIS -->
+        <div class="section">
+          <h2 class="section-title">Informações Gerais</h2>
+          
+          <div class="form-group">
+            <label>
+              Nome do Cliente <span class="required">*</span>
+            </label>
+            <input type="text" name="nomeCliente" required placeholder="Ex: João da Silva Neto">
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>
+                Cidade <span class="required">*</span>
+              </label>
+              <input type="text" name="cidade" required placeholder="Ex: Salvador">
+            </div>
+            
+            <div class="form-group">
+              <label>
+                Potência do Sistema (kWp) <span class="required">*</span>
+              </label>
+              <input type="number" step="0.001" name="potencia" required placeholder="Ex: 3000">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>
+              Quantidade de Placas <span class="required">*</span>
+            </label>
+            <input type="number" name="placas" required placeholder="Ex: 1000">
+          </div>
+        </div>
+        
+        <!-- SEÇÃO 2: SERVIÇOS AVULSOS -->
+        <div class="section">
+          <h2 class="section-title">Serviços Avulsos</h2>
+          
+          <div class="form-group">
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="servicoAvulso" name="servicoAvulso">
+              <label for="servicoAvulso">Adicionar serviços avulsos à proposta</label>
+            </div>
+          </div>
+          
+          <!-- CONTAINER SERVIÇOS DINÂMICOS -->
+          <div id="servicosContainer" class="hidden">
+            <div id="servicosList"></div>
+            <button type="button" class="btn-add-servico" id="btnAddServico">
+              + Adicionar Serviço
+            </button>
+          </div>
+        </div>
+        
+        <!-- SEÇÃO 3: TIPO DE CLIENTE -->
+        <div class="section">
+          <h2 class="section-title">Tipo de Cliente</h2>
+          
+          <div class="form-group">
+            <label>
+              Selecione o tipo de cliente <span class="required">*</span>
+            </label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="tipoComum" name="tipoCliente" value="Comum" required>
+                <label for="tipoComum" class="radio-label">Comum</label>
+              </div>
+              <div class="radio-option premium">
+                <input type="radio" id="tipoPremium" name="tipoCliente" value="Premium">
+                <label for="tipoPremium" class="radio-label">★ Premium ★</label>
+              </div>
+            </div>
+          </div>
+          
+          <!-- CAMPOS PREMIUM -->
+          <div id="premiumFields" class="hidden fade-in">
+            <div class="form-group">
+              <label>
+                Terá limpeza programada?
+              </label>
+              <div class="radio-group">
+                <div class="radio-option">
+                  <input type="radio" id="limpezaNao" name="temLimpeza" value="Não" checked>
+                  <label for="limpezaNao" class="radio-label">Não</label>
+                </div>
+                <div class="radio-option">
+                  <input type="radio" id="limpezaSim" name="temLimpeza" value="Sim">
+                  <label for="limpezaSim" class="radio-label">Sim</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>
+                Projetos inclusos no pacote Premium
+              </label>
+              <textarea 
+                name="projetosInclusos" 
+                placeholder="Liste os projetos separados por vírgula ou ponto e vírgula&#10;Ex: Projeto Residencial ABC, Projeto Comercial XYZ, Instalação Industrial DEF"
+              ></textarea>
+              <small style="color: #6c757d; font-size: 13px;">
+                Separe os projetos por vírgula (,) ou ponto e vírgula (;)
+              </small>
+            </div>
+          </div>
+        </div>
+        
+        <!-- SUBMIT -->
+        <div class="submit-section">
+          <button type="submit" class="btn-submit" id="btnSubmit">
+            GERAR PROPOSTA
+          </button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    // ==========================================
+    // VARIÁVEIS GLOBAIS
+    // ==========================================
+    let servicoCounter = 0;
+    
+    // ==========================================
+    // LÓGICA CONDICIONAL - SERVIÇOS AVULSOS
+    // ==========================================
+    const checkboxServico = document.getElementById('servicoAvulso');
+    const servicosContainer = document.getElementById('servicosContainer');
+    const servicosList = document.getElementById('servicosList');
+    const btnAddServico = document.getElementById('btnAddServico');
+    
+    checkboxServico.addEventListener('change', function() {
+      if (this.checked) {
+        servicosContainer.classList.remove('hidden');
+        servicosContainer.classList.add('fade-in');
+        // Adicionar primeiro serviço automaticamente
+        if (servicoCounter === 0) {
+          adicionarServico();
+        }
+      } else {
+        servicosContainer.classList.add('hidden');
+        // Limpar todos os serviços
+        servicosList.innerHTML = '';
+        servicoCounter = 0;
+      }
+    });
+    
+    // ==========================================
+    // ADICIONAR SERVIÇO DINÂMICO
+    // ==========================================
+    btnAddServico.addEventListener('click', adicionarServico);
+    
+    function adicionarServico() {
+      servicoCounter++;
+      
+      const servicoItem = document.createElement('div');
+      servicoItem.className = 'servico-item fade-in';
+      servicoItem.dataset.servicoId = servicoCounter;
+      
+      servicoItem.innerHTML = `
+        <div class="servico-header">
+          <span class="servico-numero">Serviço #${servicoCounter}</span>
+          <button type="button" class="btn-remove-servico" onclick="removerServico(${servicoCounter})">
+            Remover
+          </button>
+        </div>
+        
+        <div class="form-group">
+          <label>Descrição do Serviço</label>
+          <input 
+            type="text" 
+            name="servico_${servicoCounter}_descricao" 
+            placeholder="Ex: Manutenção corretiva de inversor"
+            required
+          >
+        </div>
+        
+        <div class="form-group">
+          <label>Valor do Serviço (R$)</label>
+          <input 
+            type="number" 
+            step="0.01" 
+            name="servico_${servicoCounter}_valor" 
+            placeholder="Ex: 1500.00"
+            required
+          >
+        </div>
+      `;
+      
+      servicosList.appendChild(servicoItem);
+    }
+    
+    // ==========================================
+    // REMOVER SERVIÇO
+    // ==========================================
+    function removerServico(id) {
+      const servicoItem = document.querySelector(`[data-servico-id="${id}"]`);
+      if (servicoItem) {
+        servicoItem.remove();
+        
+        // Se não houver mais serviços, desmarcar checkbox
+        if (servicosList.children.length === 0) {
+          checkboxServico.checked = false;
+          servicosContainer.classList.add('hidden');
+          servicoCounter = 0;
+        }
+      }
+    }
+    
+    // ==========================================
+    // LÓGICA CONDICIONAL - PREMIUM
+    // ==========================================
+    const radioComum = document.getElementById('tipoComum');
+    const radioPremium = document.getElementById('tipoPremium');
+    const premiumFields = document.getElementById('premiumFields');
+    
+    radioComum.addEventListener('change', function() {
+      if (this.checked) {
+        premiumFields.classList.add('hidden');
+      }
+    });
+    
+    radioPremium.addEventListener('change', function() {
+      if (this.checked) {
+        premiumFields.classList.remove('hidden');
+        premiumFields.classList.add('fade-in');
+      }
+    });
+    
+    // ==========================================
+    // SUBMIT FORM
+    // ==========================================
+    const form = document.getElementById('gaussForm');
+    const btnSubmit = document.getElementById('btnSubmit');
+    
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Loading state
+      btnSubmit.classList.add('loading');
+      btnSubmit.textContent = 'GERANDO PROPOSTA';
+      
+      try {
+        // Coletar dados do formulário
+        const formData = new FormData(form);
+        const data = {};
+        
+        // Campos básicos
+        for (let [key, value] of formData.entries()) {
+          data[key] = value;
+        }
+        
+        // Processar serviços avulsos
+        if (checkboxServico.checked) {
+          const servicos = [];
+          const servicoItems = servicosList.querySelectorAll('.servico-item');
+          
+          servicoItems.forEach(item => {
+            const id = item.dataset.servicoId;
+            const descricao = formData.get(`servico_${id}_descricao`);
+            const valor = parseFloat(formData.get(`servico_${id}_valor`));
+            
+            if (descricao && valor) {
+              servicos.push({ descricao, valor });
+            }
+          });
+          
+          data.servicosAvulsos = servicos;
+        } else {
+          data.servicosAvulsos = [];
+        }
+        
+        // Se não for Premium, remover campos
+        if (data.tipoCliente !== 'Premium') {
+          delete data.temLimpeza;
+          delete data.projetosInclusos;
+        }
+        
+        console.log('Dados a enviar:', data);
+        
+        // Enviar para n8n Webhook
+        const response = await fetch('https://SEU-N8N.app.n8n.cloud/webhook/gauss-proposta', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          alert('✅ Proposta gerada com sucesso!');
+          
+          // Resetar formulário
+          form.reset();
+          servicosList.innerHTML = '';
+          servicoCounter = 0;
+          servicosContainer.classList.add('hidden');
+          premiumFields.classList.add('hidden');
+          
+          // Aqui você pode redirecionar ou baixar o PDF
+          // window.location.href = result.pdfUrl;
+        } else {
+          throw new Error('Erro ao gerar proposta');
+        }
+        
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('❌ Erro ao gerar proposta. Tente novamente.');
+      } finally {
+        // Remover loading state
+        btnSubmit.classList.remove('loading');
+        btnSubmit.textContent = 'GERAR PROPOSTA';
+      }
+    });
+  </script>
+</body>
+</html>
