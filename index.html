@@ -292,6 +292,44 @@
       color: var(--primary-dark);
       margin-bottom: 8px;
     }
+    
+    /* NOVO: Estilos para checkboxes de serviços específicos */
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px;
+      background: var(--bg);
+      border-radius: 8px;
+      border: 2px solid var(--border);
+    }
+    
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .checkbox-option:hover {
+      background: rgba(57, 181, 74, 0.05);
+    }
+    
+    .checkbox-option input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    
+    .checkbox-option label {
+      cursor: pointer;
+      margin: 0;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
@@ -329,6 +367,33 @@
                 <input type="radio" id="tipoLimpeza" name="tipoCliente" value="Limpeza">
                 <label for="tipoLimpeza" class="radio-label">Só Limpeza</label>
               </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- ⭐ NOVO: SELEÇÃO DE SERVIÇOS ESPECÍFICOS -->
+        <div class="section hidden" id="servicosEspecificosSection">
+          <h2 class="section-title">Serviços Específicos (Opcional)</h2>
+          
+          <div class="alert">
+            <div class="alert-title">💡 Personalização de Serviços</div>
+            <div class="alert-text">
+              Marque abaixo se deseja oferecer apenas serviços específicos. Deixe desmarcado para oferta padrão baseada na cidade.
+            </div>
+          </div>
+          
+          <div class="checkbox-group" id="servicosCheckboxes">
+            <div class="checkbox-option">
+              <input type="checkbox" id="checkMonitoramento" name="servicosEspecificos" value="monitoramento">
+              <label for="checkMonitoramento">📡 Monitoramento Remoto</label>
+            </div>
+            <div class="checkbox-option">
+              <input type="checkbox" id="checkGarantia" name="servicosEspecificos" value="garantia">
+              <label for="checkGarantia">🛡️ Garantia Estendida</label>
+            </div>
+            <div class="checkbox-option">
+              <input type="checkbox" id="checkLimpeza" name="servicosEspecificos" value="limpezas">
+              <label for="checkLimpeza">🧼 Limpeza</label>
             </div>
           </div>
         </div>
@@ -475,6 +540,7 @@
     
     const infoGeraisSection = document.getElementById('infoGeraisSection');
     const premiumSection = document.getElementById('premiumSection');
+    const servicosEspecificosSection = document.getElementById('servicosEspecificosSection');
     const alertaAvulso = document.getElementById('alertaAvulso');
     
     const servicosList = document.getElementById('servicosList');
@@ -494,6 +560,8 @@
       if (tipoSelecionado === 'Comum') {
         infoGeraisSection.classList.remove('hidden');
         premiumSection.classList.add('hidden');
+        servicosEspecificosSection.classList.remove('hidden');
+        servicosEspecificosSection.classList.add('fade-in');
         alertaAvulso.classList.add('hidden');
         
         camposCidade.required = true;
@@ -505,6 +573,8 @@
         infoGeraisSection.classList.remove('hidden');
         premiumSection.classList.remove('hidden');
         premiumSection.classList.add('fade-in');
+        servicosEspecificosSection.classList.remove('hidden');
+        servicosEspecificosSection.classList.add('fade-in');
         alertaAvulso.classList.add('hidden');
         
         camposCidade.required = true;
@@ -515,6 +585,7 @@
       } else if (tipoSelecionado === 'Avulso') {
         infoGeraisSection.classList.remove('hidden');
         premiumSection.classList.add('hidden');
+        servicosEspecificosSection.classList.add('hidden');
         alertaAvulso.classList.remove('hidden');
         alertaAvulso.classList.add('fade-in');
         
@@ -530,6 +601,7 @@
       } else if (tipoSelecionado === 'Limpeza') {
         infoGeraisSection.classList.remove('hidden');
         premiumSection.classList.add('hidden');
+        servicosEspecificosSection.classList.add('hidden');
         alertaAvulso.classList.add('hidden');
         
         camposCidade.required = true;
@@ -642,6 +714,13 @@
         if (descricao && valor > 0) {
           data.servicosAvulsos.push({ descricao, valor });
         }
+      });
+      
+      // NOVO: Capturar serviços específicos marcados
+      data.servicosEspecificosPersonalizados = [];
+      const checkboxes = document.querySelectorAll('input[name="servicosEspecificos"]:checked');
+      checkboxes.forEach(cb => {
+        data.servicosEspecificosPersonalizados.push(cb.value);
       });
       
       try {
