@@ -92,6 +92,12 @@
       color: var(--danger);
     }
     
+    .optional {
+      color: var(--text-light);
+      font-weight: 400;
+      font-size: 12px;
+    }
+    
     input[type="text"],
     input[type="number"],
     textarea,
@@ -668,7 +674,7 @@
         </div>
         <div class="servico-fields">
           <div class="form-group" style="margin-bottom: 0;">
-            <label>Nome do Serviço</label>
+            <label>Nome do Serviço <span class="required">*</span></label>
             <input 
               type="text" 
               name="servico_${servicoCounter}_nome" 
@@ -678,16 +684,15 @@
           </div>
           <div class="servico-row">
             <div class="form-group" style="margin-bottom: 0;">
-              <label>Descrição</label>
+              <label>Descrição <span class="optional">(Opcional)</span></label>
               <input 
                 type="text" 
                 name="servico_${servicoCounter}_descricao" 
-                placeholder="Ex: Inclui verificação completa do sistema"
-                required
+                placeholder="Ex: Verificação completa; Limpeza de módulos; Teste de tensão"
               >
             </div>
             <div class="form-group" style="margin-bottom: 0;">
-              <label>Valor (R$)</label>
+              <label>Valor (R$) <span class="required">*</span></label>
               <input 
                 type="number" 
                 name="servico_${servicoCounter}_valor" 
@@ -714,7 +719,7 @@
     btnAddServico.addEventListener('click', adicionarServico);
     
     // ==========================================
-    // SUBMIT FORM (CORRIGIDO COM DEBUG)
+    // SUBMIT FORM - DESCRIÇÃO OPCIONAL
     // ==========================================
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -749,18 +754,23 @@
         }
       });
       
-      // Processar serviços avulsos (AGORA COM NOME)
+      // ✅ PROCESSAR SERVIÇOS - DESCRIÇÃO OPCIONAL
       data.servicosAvulsos = [];
       const servicosElements = servicosList.querySelectorAll('.servico-item');
       
       servicosElements.forEach((servicoEl) => {
         const id = servicoEl.id.split('-')[1];
         const nome = formData.get(`servico_${id}_nome`);
-        const descricao = formData.get(`servico_${id}_descricao`);
+        const descricao = formData.get(`servico_${id}_descricao`) || ''; // ✅ ACEITA VAZIO
         const valor = parseFloat(formData.get(`servico_${id}_valor`)) || 0;
         
-        if (nome && descricao && valor > 0) {
-          data.servicosAvulsos.push({ nome, descricao, valor });
+        // ✅ VALIDAÇÃO: apenas nome e valor são obrigatórios
+        if (nome && nome.trim() !== '' && valor > 0) {
+          data.servicosAvulsos.push({ 
+            nome, 
+            descricao: descricao.trim(), // ✅ Pode ser vazio
+            valor 
+          });
         }
       });
       
