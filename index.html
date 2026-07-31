@@ -233,6 +233,12 @@
     }
     
     .servico-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .servico-row {
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: 12px;
@@ -662,24 +668,35 @@
         </div>
         <div class="servico-fields">
           <div class="form-group" style="margin-bottom: 0;">
-            <label>Descrição</label>
+            <label>Nome do Serviço</label>
             <input 
               type="text" 
-              name="servico_${servicoCounter}_descricao" 
-              placeholder="Ex: Manutenção preventiva"
+              name="servico_${servicoCounter}_nome" 
+              placeholder="Ex: Manutenção Preventiva Anual"
               required
             >
           </div>
-          <div class="form-group" style="margin-bottom: 0;">
-            <label>Valor (R$)</label>
-            <input 
-              type="number" 
-              name="servico_${servicoCounter}_valor" 
-              step="0.01" 
-              min="0"
-              placeholder="150.00"
-              required
-            >
+          <div class="servico-row">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>Descrição</label>
+              <input 
+                type="text" 
+                name="servico_${servicoCounter}_descricao" 
+                placeholder="Ex: Inclui verificação completa do sistema"
+                required
+              >
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label>Valor (R$)</label>
+              <input 
+                type="number" 
+                name="servico_${servicoCounter}_valor" 
+                step="0.01" 
+                min="0"
+                placeholder="150.00"
+                required
+              >
+            </div>
           </div>
         </div>
       `;
@@ -732,17 +749,18 @@
         }
       });
       
-      // Processar serviços avulsos
+      // Processar serviços avulsos (AGORA COM NOME)
       data.servicosAvulsos = [];
       const servicosElements = servicosList.querySelectorAll('.servico-item');
       
       servicosElements.forEach((servicoEl) => {
         const id = servicoEl.id.split('-')[1];
+        const nome = formData.get(`servico_${id}_nome`);
         const descricao = formData.get(`servico_${id}_descricao`);
         const valor = parseFloat(formData.get(`servico_${id}_valor`)) || 0;
         
-        if (descricao && valor > 0) {
-          data.servicosAvulsos.push({ descricao, valor });
+        if (nome && descricao && valor > 0) {
+          data.servicosAvulsos.push({ nome, descricao, valor });
         }
       });
       
