@@ -449,23 +449,7 @@ select:focus {
   font-weight: 500;
 }
 
-.debug-box {
-  background: #1E293B;
-  color: #F1F5F9;
-  padding: 16px;
-  border-radius: 8px;
-  font-family: 'Courier New', monospace;
-  font-size: 12px;
-  margin-top: 20px;
-  max-height: 300px;
-  overflow-y: auto;
-}
 
-.debug-box pre {
-  margin: 0;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
 
   </style>
 </head>
@@ -762,8 +746,7 @@ select:focus {
     const camposPlacas   = document.getElementById('placas');
     const projetosInclusos = document.getElementById('projetosInclusos');
     
-    const debugBox     = document.getElementById('debugBox');
-    const debugContent = document.getElementById('debugContent');
+    
     
     // ==========================================
     // LÓGICA CONDICIONAL - TIPO DE PROPOSTA
@@ -969,14 +952,7 @@ select:focus {
       // URL do webhook baseada na seleção do servidor
       const webhookUrl = getWebhookUrl();
 
-      // DEBUG
-      debugBox.classList.remove('hidden');
-      debugContent.textContent =
-        `🖥️ Servidor: ${servidorAtivo.toUpperCase()} → ${webhookUrl}\n\n` +
-        JSON.stringify(data, null, 2);
-      console.log('🖥️ Servidor selecionado:', servidorAtivo);
-      console.log('🔗 Webhook URL:', webhookUrl);
-      console.log('📤 Dados enviados:', data);
+    
       
       try {
         const response = await fetch(webhookUrl, {
@@ -998,7 +974,6 @@ select:focus {
             servicoCounter = 0;
             form.classList.remove('hidden');
             document.getElementById('successMessage').classList.add('hidden');
-            debugBox.classList.add('hidden');
             atualizarFormulario();
           }, 3000);
         } else {
