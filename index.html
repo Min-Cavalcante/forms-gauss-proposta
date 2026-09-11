@@ -8,7 +8,6 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-```
 :root {
   --primary: #39B54A;
   --primary-dark: #2A8D38;
@@ -61,6 +60,112 @@ body {
   opacity: 0.95;
   font-size: 15px;
 }
+
+/* ==========================================
+   SERVER SELECTOR BANNER
+   ========================================== */
+.server-selector-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 24px;
+  background: #1E293B;
+  border-bottom: 3px solid #0F172A;
+  flex-wrap: wrap;
+}
+
+.server-selector-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94A3B8;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.server-selector-label span {
+  font-size: 16px;
+}
+
+.server-toggle {
+  display: flex;
+  background: #0F172A;
+  border-radius: 8px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.server-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+  background: transparent;
+  color: #64748B;
+}
+
+.server-btn:hover {
+  color: #CBD5E1;
+}
+
+.server-btn.active-gauss {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  box-shadow: 0 2px 8px rgba(57, 181, 74, 0.4);
+}
+
+.server-btn.active-local {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: white;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+}
+
+.server-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #64748B;
+  font-family: 'Courier New', monospace;
+  background: #0F172A;
+  padding: 6px 12px;
+  border-radius: 6px;
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.server-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse-dot 2s infinite;
+}
+
+.dot-gauss {
+  background: var(--primary);
+}
+
+.dot-local {
+  background: #F59E0B;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ========================================== */
 
 .form-content {
   padding: 32px;
@@ -362,70 +467,6 @@ select:focus {
   word-wrap: break-word;
 }
 
-/* SELEÇÃO DO AMBIENTE */
-.ambiente-group {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-}
-
-.ambiente-option {
-  position: relative;
-}
-
-.ambiente-option input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-}
-
-.ambiente-label {
-  display: block;
-  padding: 20px;
-  border: 2px solid var(--border);
-  border-radius: 8px;
-  cursor: pointer;
-  text-align: center;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-
-.ambiente-label .icone {
-  display: block;
-  font-size: 28px;
-  margin-bottom: 8px;
-}
-
-.ambiente-label .descricao {
-  display: block;
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--text-light);
-  margin-top: 5px;
-}
-
-.ambiente-option input[type="radio"]:checked + .ambiente-label {
-  border-color: var(--primary);
-  background: rgba(57, 181, 74, 0.08);
-  color: var(--primary-dark);
-  box-shadow: 0 0 0 1px var(--primary);
-}
-
-@media (max-width: 600px) {
-  .radio-group,
-  .ambiente-group {
-    grid-template-columns: 1fr;
-  }
-
-  .servico-row {
-    grid-template-columns: 1fr;
-  }
-
-  .form-content {
-    padding: 20px;
-  }
-}
-```
-
   </style>
 </head>
 <body>
@@ -435,312 +476,316 @@ select:focus {
       <p>Sistema de Geração de Propostas - Gauss Energia</p>
     </div>
 
-```
-<div class="form-content">
-  <form id="propostaForm">
+    <!-- ==========================================
+         SERVER SELECTOR BANNER
+         ========================================== -->
+    <div class="server-selector-banner">
+      <div class="server-selector-label">
+        <span>🖥️</span> Servidor
+      </div>
 
-    <!-- ⭐ SELEÇÃO DO AMBIENTE -->
-    <div class="section">
-      <h2 class="section-title">Ambiente de Geração</h2>
+      <div class="server-toggle">
+        <button
+          type="button"
+          class="server-btn active-gauss"
+          id="btnServerGauss"
+          onclick="selecionarServidor('gauss')"
+        >
+          ☁️ Server Gauss
+        </button>
+        <button
+          type="button"
+          class="server-btn"
+          id="btnServerLocal"
+          onclick="selecionarServidor('local')"
+        >
+          🏠 Local
+        </button>
+      </div>
 
-      <div class="form-group">
-        <label>
-          Onde deseja gerar a proposta? <span class="required">*</span>
-        </label>
+      <div class="server-indicator" id="serverIndicator">
+        <span class="server-dot dot-gauss" id="serverDot"></span>
+        <span id="serverUrl">n8n.gaussenergia.com.br/webhook/...</span>
+      </div>
+    </div>
+    <!-- ========================================== -->
 
-        <div class="ambiente-group">
-          <div class="ambiente-option">
-            <input
-              type="radio"
-              id="ambienteServer"
-              name="ambiente"
-              value="Server Gauss"
-              checked
-            >
-            <label for="ambienteServer" class="ambiente-label">
-              <span class="icone">☁️</span>
-              Server Gauss
-              <span class="descricao">Servidor oficial da Gauss</span>
+    <div class="form-content">
+      <form id="propostaForm">
+        
+        <!-- ⭐ SEÇÃO TIPO DE PROPOSTA -->
+        <div class="section">
+          <h2 class="section-title">Tipo de Proposta</h2>
+          
+          <div class="form-group">
+            <label>
+              Selecione o tipo de proposta <span class="required">*</span>
             </label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="tipoComum" name="tipoCliente" value="Comum" checked>
+                <label for="tipoComum" class="radio-label">Comum</label>
+              </div>
+              <div class="radio-option premium">
+                <input type="radio" id="tipoPremium" name="tipoCliente" value="Premium">
+                <label for="tipoPremium" class="radio-label">★ Premium ★</label>
+              </div>
+              <div class="radio-option avulso">
+                <input type="radio" id="tipoAvulso" name="tipoCliente" value="Avulso">
+                <label for="tipoAvulso" class="radio-label">Só Avulso</label>
+              </div>
+              <div class="radio-option limpeza">
+                <input type="radio" id="tipoLimpeza" name="tipoCliente" value="Limpeza">
+                <label for="tipoLimpeza" class="radio-label">Só Limpeza</label>
+              </div>
+            </div>
           </div>
-
-          <div class="ambiente-option">
-            <input
-              type="radio"
-              id="ambienteLocal"
-              name="ambiente"
-              value="Local"
-            >
-            <label for="ambienteLocal" class="ambiente-label">
-              <span class="icone">💻</span>
-              Local
-              <span class="descricao">n8n local + Gotenberg</span>
+        </div>
+        
+        <!-- ⭐ SELEÇÃO DE SERVIÇOS ESPECÍFICOS -->
+        <div class="section hidden" id="servicosEspecificosSection">
+          <h2 class="section-title">Serviços Específicos (Opcional)</h2>
+          
+          <div class="alert">
+            <div class="alert-title">💡 Personalização de Serviços</div>
+            <div class="alert-text">
+              Marque abaixo se deseja oferecer apenas serviços específicos. Deixe desmarcado para oferta padrão baseada na cidade.
+            </div>
+          </div>
+          
+          <div class="checkbox-group" id="servicosCheckboxes">
+            <div class="checkbox-option">
+              <input type="checkbox" id="checkMonitoramento" value="monitoramento">
+              <label for="checkMonitoramento">📡 Monitoramento Remoto</label>
+            </div>
+            <div class="checkbox-option">
+              <input type="checkbox" id="checkGarantia" value="garantia">
+              <label for="checkGarantia">🛡️ Garantia Estendida</label>
+            </div>
+            <div class="checkbox-option">
+              <input type="checkbox" id="checkLimpeza" value="limpezas">
+              <label for="checkLimpeza">🧼 Limpeza</label>
+            </div>
+          </div>
+        </div>
+        
+        <!-- ⭐ ALERTA MODO AVULSO -->
+        <div id="alertaAvulso" class="alert hidden">
+          <div class="alert-title">📋 Modo Avulso Ativado</div>
+          <div class="alert-text">
+            Neste modo, campos como Potência são opcionais. Adicione pelo menos 1 serviço abaixo.
+          </div>
+        </div>
+        
+        <!-- ⭐ SEÇÃO INFORMAÇÕES GERAIS -->
+        <div class="section" id="infoGeraisSection">
+          <h2 class="section-title">Informações Gerais</h2>
+          
+          <div class="form-group">
+            <label for="nomeCliente">
+              Nome do Cliente <span class="required">*</span>
             </label>
+            <input 
+              type="text" 
+              id="nomeCliente" 
+              name="nomeCliente" 
+              required
+              placeholder="João Silva"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="cidade">
+              Cidade <span class="required">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="cidade" 
+              name="cidade" 
+              required
+              placeholder="Irecê"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="potencia">
+              Potência do Sistema (kWp) <span class="required">*</span>
+            </label>
+            <input 
+              type="number" 
+              id="potencia" 
+              name="potencia" 
+              step="0.001" 
+              min="0"
+              required
+              placeholder="5.940"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="placas">
+              Quantidade de Placas <span class="required">*</span>
+            </label>
+            <input 
+              type="number" 
+              id="placas" 
+              name="placas" 
+              min="0"
+              required
+              placeholder="11"
+            >
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- ⭐ SEÇÃO TIPO DE PROPOSTA -->
-    <div class="section">
-      <h2 class="section-title">Tipo de Proposta</h2>
-
-      <div class="form-group">
-        <label>
-          Selecione o tipo de proposta <span class="required">*</span>
-        </label>
-        <div class="radio-group">
-          <div class="radio-option">
-            <input type="radio" id="tipoComum" name="tipoCliente" value="Comum" checked>
-            <label for="tipoComum" class="radio-label">Comum</label>
+        
+        <!-- ⭐ SEÇÃO PREMIUM -->
+        <div class="section hidden" id="premiumSection">
+          <h2 class="section-title" style="border-color: var(--secondary); color: var(--secondary);">
+            ★ Informações Premium
+          </h2>
+          
+          <div class="form-group">
+            <label>
+              Incluir serviço de limpeza? <span class="required">*</span>
+            </label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="limpezaSim" name="temLimpeza" value="Sim">
+                <label for="limpezaSim" class="radio-label">Sim</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="limpezaNao" name="temLimpeza" value="Não" checked>
+                <label for="limpezaNao" class="radio-label">Não</label>
+              </div>
+            </div>
           </div>
-
-          <div class="radio-option premium">
-            <input type="radio" id="tipoPremium" name="tipoCliente" value="Premium">
-            <label for="tipoPremium" class="radio-label">★ Premium ★</label>
-          </div>
-
-          <div class="radio-option avulso">
-            <input type="radio" id="tipoAvulso" name="tipoCliente" value="Avulso">
-            <label for="tipoAvulso" class="radio-label">Só Avulso</label>
-          </div>
-
-          <div class="radio-option limpeza">
-            <input type="radio" id="tipoLimpeza" name="tipoCliente" value="Limpeza">
-            <label for="tipoLimpeza" class="radio-label">Só Limpeza</label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ⭐ SELEÇÃO DE SERVIÇOS ESPECÍFICOS -->
-    <div class="section hidden" id="servicosEspecificosSection">
-      <h2 class="section-title">Serviços Específicos (Opcional)</h2>
-
-      <div class="alert">
-        <div class="alert-title">💡 Personalização de Serviços</div>
-        <div class="alert-text">
-          Marque abaixo se deseja oferecer apenas serviços específicos. Deixe desmarcado para oferta padrão baseada na cidade.
-        </div>
-      </div>
-
-      <div class="checkbox-group" id="servicosCheckboxes">
-        <div class="checkbox-option">
-          <input type="checkbox" id="checkMonitoramento" value="monitoramento">
-          <label for="checkMonitoramento">📡 Monitoramento Remoto</label>
-        </div>
-
-        <div class="checkbox-option">
-          <input type="checkbox" id="checkGarantia" value="garantia">
-          <label for="checkGarantia">🛡️ Garantia Estendida</label>
-        </div>
-
-        <div class="checkbox-option">
-          <input type="checkbox" id="checkLimpeza" value="limpezas">
-          <label for="checkLimpeza">🧼 Limpeza</label>
-        </div>
-      </div>
-    </div>
-
-    <!-- ⭐ ALERTA MODO AVULSO -->
-    <div id="alertaAvulso" class="alert hidden">
-      <div class="alert-title">📋 Modo Avulso Ativado</div>
-      <div class="alert-text">
-        Neste modo, campos como Potência são opcionais. Adicione pelo menos 1 serviço abaixo.
-      </div>
-    </div>
-
-    <!-- ⭐ SEÇÃO INFORMAÇÕES GERAIS -->
-    <div class="section" id="infoGeraisSection">
-      <h2 class="section-title">Informações Gerais</h2>
-
-      <div class="form-group">
-        <label for="nomeCliente">
-          Nome do Cliente <span class="required">*</span>
-        </label>
-
-        <input
-          type="text"
-          id="nomeCliente"
-          name="nomeCliente"
-          required
-          placeholder="João Silva"
-        >
-      </div>
-
-      <div class="form-group">
-        <label for="cidade">
-          Cidade <span class="required">*</span>
-        </label>
-
-        <input
-          type="text"
-          id="cidade"
-          name="cidade"
-          required
-          placeholder="Irecê"
-        >
-      </div>
-
-      <div class="form-group">
-        <label for="potencia">
-          Potência do Sistema (kWp) <span class="required">*</span>
-        </label>
-
-        <input
-          type="number"
-          id="potencia"
-          name="potencia"
-          step="0.001"
-          min="0"
-          required
-          placeholder="5.940"
-        >
-      </div>
-
-      <div class="form-group">
-        <label for="placas">
-          Quantidade de Placas <span class="required">*</span>
-        </label>
-
-        <input
-          type="number"
-          id="placas"
-          name="placas"
-          min="0"
-          required
-          placeholder="11"
-        >
-      </div>
-    </div>
-
-    <!-- ⭐ SEÇÃO PREMIUM -->
-    <div class="section hidden" id="premiumSection">
-      <h2 class="section-title" style="border-color: var(--secondary); color: var(--secondary);">
-        ★ Informações Premium
-      </h2>
-
-      <div class="form-group">
-        <label>
-          Incluir serviço de limpeza? <span class="required">*</span>
-        </label>
-
-        <div class="radio-group">
-          <div class="radio-option">
-            <input type="radio" id="limpezaSim" name="temLimpeza" value="Sim">
-            <label for="limpezaSim" class="radio-label">Sim</label>
-          </div>
-
-          <div class="radio-option">
-            <input type="radio" id="limpezaNao" name="temLimpeza" value="Não" checked>
-            <label for="limpezaNao" class="radio-label">Não</label>
+          
+          <div class="form-group">
+            <label for="projetosInclusos">
+              Projetos Inclusos <span class="required">*</span>
+            </label>
+            <textarea 
+              id="projetosInclusos" 
+              name="projetosInclusos" 
+              rows="3"
+              placeholder="Ex: Projeto Elétrico, Projeto Estrutural, ART"
+            ></textarea>
           </div>
         </div>
+        
+        <!-- ⭐ SEÇÃO SERVIÇOS AVULSOS -->
+        <div class="section">
+          <h2 class="section-title">Serviços Avulsos (Opcional)</h2>
+          
+          <div id="servicosList"></div>
+          
+          <button type="button" id="btnAddServico" class="btn-add-servico">
+            + Adicionar Serviço Avulso
+          </button>
+        </div>
+        
+        <!-- ⭐ BOTÃO SUBMIT -->
+        <button type="submit" class="btn-submit">
+          🚀 Gerar Proposta
+        </button>
+      </form>
+      
+      <div id="successMessage" class="success-message hidden">
+        <h3>✅ Proposta enviada com sucesso!</h3>
+        <p>O PDF será gerado em instantes.</p>
       </div>
-
-      <div class="form-group">
-        <label for="projetosInclusos">
-          Projetos Inclusos <span class="required">*</span>
-        </label>
-
-        <textarea
-          id="projetosInclusos"
-          name="projetosInclusos"
-          rows="3"
-          placeholder="Ex: Projeto Elétrico, Projeto Estrutural, ART"
-        ></textarea>
+      
+      <!-- DEBUG BOX -->
+      <div id="debugBox" class="debug-box hidden">
+        <pre id="debugContent"></pre>
       </div>
     </div>
-
-    <!-- ⭐ SEÇÃO SERVIÇOS AVULSOS -->
-    <div class="section">
-      <h2 class="section-title">Serviços Avulsos (Opcional)</h2>
-
-      <div id="servicosList"></div>
-
-      <button type="button" id="btnAddServico" class="btn-add-servico">
-        + Adicionar Serviço Avulso
-      </button>
-    </div>
-
-    <!-- ⭐ BOTÃO SUBMIT -->
-    <button type="submit" class="btn-submit">
-      🚀 Gerar Proposta
-    </button>
-  </form>
-
-  <div id="successMessage" class="success-message hidden">
-    <h3>✅ Proposta enviada com sucesso!</h3>
-    <p>O PDF será gerado em instantes.</p>
-  </div>
-
-  <!-- DEBUG BOX -->
-  <div id="debugBox" class="debug-box hidden">
-    <pre id="debugContent"></pre>
-  </div>
-</div>
-```
 
   </div>
 
   <script>
     // ==========================================
-    // VARIÁVEIS GLOBAIS
+    // CONFIGURAÇÃO DE SERVIDORES
     // ==========================================
-
-    let servicoCounter = 0;
-
-    const form = document.getElementById('propostaForm');
-
-    const radioComum = document.getElementById('tipoComum');
-    const radioPremium = document.getElementById('tipoPremium');
-    const radioAvulso = document.getElementById('tipoAvulso');
-    const radioLimpeza = document.getElementById('tipoLimpeza');
-
-    const infoGeraisSection = document.getElementById('infoGeraisSection');
-    const premiumSection = document.getElementById('premiumSection');
-    const servicosEspecificosSection = document.getElementById('servicosEspecificosSection');
-    const alertaAvulso = document.getElementById('alertaAvulso');
-
-    const servicosList = document.getElementById('servicosList');
-    const btnAddServico = document.getElementById('btnAddServico');
-
-    const camposCidade = document.getElementById('cidade');
-    const camposPotencia = document.getElementById('potencia');
-    const camposPlacas = document.getElementById('placas');
-    const projetosInclusos = document.getElementById('projetosInclusos');
-
-    const debugBox = document.getElementById('debugBox');
-    const debugContent = document.getElementById('debugContent');
-
-    // ==========================================
-    // WEBHOOKS
-    // ==========================================
-
-    const WEBHOOKS = {
-      server: 'https://n8n.gaussenergia.com.br/webhook/gauss-proposta',
+    const SERVIDORES = {
+      gauss: 'https://n8n.gaussenergia.com.br/webhook/gauss-proposta',
       local: 'https://dexterity-copper-resistant.ngrok-free.dev/webhook/gauss-proposta'
     };
 
+    let servidorAtivo = 'gauss'; // Padrão: Server Gauss
+
+    function selecionarServidor(servidor) {
+      servidorAtivo = servidor;
+
+      const btnGauss    = document.getElementById('btnServerGauss');
+      const btnLocal    = document.getElementById('btnServerLocal');
+      const serverDot   = document.getElementById('serverDot');
+      const serverUrl   = document.getElementById('serverUrl');
+
+      // Reset dos botões
+      btnGauss.className = 'server-btn';
+      btnLocal.className = 'server-btn';
+
+      if (servidor === 'gauss') {
+        btnGauss.classList.add('active-gauss');
+        serverDot.className = 'server-dot dot-gauss';
+        serverUrl.textContent = 'n8n.gaussenergia.com.br/webhook/...';
+      } else {
+        btnLocal.classList.add('active-local');
+        serverDot.className = 'server-dot dot-local';
+        serverUrl.textContent = 'ngrok-free.dev/webhook/...';
+      }
+    }
+
+    function getWebhookUrl() {
+      return SERVIDORES[servidorAtivo];
+    }
+
+    // ==========================================
+    // VARIÁVEIS GLOBAIS
+    // ==========================================
+    let servicoCounter = 0;
+    
+    const form = document.getElementById('propostaForm');
+    
+    const radioComum   = document.getElementById('tipoComum');
+    const radioPremium = document.getElementById('tipoPremium');
+    const radioAvulso  = document.getElementById('tipoAvulso');
+    const radioLimpeza = document.getElementById('tipoLimpeza');
+    
+    const infoGeraisSection          = document.getElementById('infoGeraisSection');
+    const premiumSection             = document.getElementById('premiumSection');
+    const servicosEspecificosSection = document.getElementById('servicosEspecificosSection');
+    const alertaAvulso               = document.getElementById('alertaAvulso');
+    
+    const servicosList  = document.getElementById('servicosList');
+    const btnAddServico = document.getElementById('btnAddServico');
+    
+    const camposCidade   = document.getElementById('cidade');
+    const camposPotencia = document.getElementById('potencia');
+    const camposPlacas   = document.getElementById('placas');
+    const projetosInclusos = document.getElementById('projetosInclusos');
+    
+    const debugBox     = document.getElementById('debugBox');
+    const debugContent = document.getElementById('debugContent');
+    
     // ==========================================
     // LÓGICA CONDICIONAL - TIPO DE PROPOSTA
     // ==========================================
-
     function atualizarFormulario() {
       const tipoSelecionado = document.querySelector('input[name="tipoCliente"]:checked').value;
-
+      
       if (tipoSelecionado === 'Comum') {
         infoGeraisSection.classList.remove('hidden');
         premiumSection.classList.add('hidden');
         servicosEspecificosSection.classList.remove('hidden');
         servicosEspecificosSection.classList.add('fade-in');
         alertaAvulso.classList.add('hidden');
-
-        camposCidade.required = true;
+        
+        camposCidade.required   = true;
         camposPotencia.required = true;
-        camposPlacas.required = true;
+        camposPlacas.required   = true;
         projetosInclusos.required = false;
-
+        
       } else if (tipoSelecionado === 'Premium') {
         infoGeraisSection.classList.remove('hidden');
         premiumSection.classList.remove('hidden');
@@ -748,96 +793,88 @@ select:focus {
         servicosEspecificosSection.classList.remove('hidden');
         servicosEspecificosSection.classList.add('fade-in');
         alertaAvulso.classList.add('hidden');
-
-        camposCidade.required = true;
+        
+        camposCidade.required   = true;
         camposPotencia.required = true;
-        camposPlacas.required = true;
+        camposPlacas.required   = true;
         projetosInclusos.required = true;
-
+        
       } else if (tipoSelecionado === 'Avulso') {
         infoGeraisSection.classList.remove('hidden');
         premiumSection.classList.add('hidden');
         servicosEspecificosSection.classList.add('hidden');
         alertaAvulso.classList.remove('hidden');
         alertaAvulso.classList.add('fade-in');
-
-        camposCidade.required = false;
+        
+        camposCidade.required   = false;
         camposPotencia.required = false;
-        camposPlacas.required = false;
+        camposPlacas.required   = false;
         projetosInclusos.required = false;
-
+        
         if (servicoCounter === 0) {
           adicionarServico();
         }
-
+        
       } else if (tipoSelecionado === 'Limpeza') {
         infoGeraisSection.classList.remove('hidden');
         premiumSection.classList.add('hidden');
         servicosEspecificosSection.classList.add('hidden');
         alertaAvulso.classList.add('hidden');
-
-        camposCidade.required = true;
+        
+        camposCidade.required   = true;
         camposPotencia.required = false;
-        camposPlacas.required = true;
+        camposPlacas.required   = true;
         projetosInclusos.required = false;
       }
     }
-
+    
     radioComum.addEventListener('change', atualizarFormulario);
     radioPremium.addEventListener('change', atualizarFormulario);
     radioAvulso.addEventListener('change', atualizarFormulario);
     radioLimpeza.addEventListener('change', atualizarFormulario);
-
+    
     // ==========================================
     // SERVIÇOS AVULSOS - ADICIONAR/REMOVER
     // ==========================================
-
     function adicionarServico() {
       servicoCounter++;
-
+      
       const servicoDiv = document.createElement('div');
       servicoDiv.className = 'servico-item fade-in';
       servicoDiv.id = `servico-${servicoCounter}`;
-
+      
       servicoDiv.innerHTML = `
         <div class="servico-header">
           <span class="servico-numero">Serviço #${servicoCounter}</span>
-
           <button type="button" class="btn-remover" onclick="removerServico(${servicoCounter})">
             Remover
           </button>
         </div>
-
         <div class="servico-fields">
           <div class="form-group" style="margin-bottom: 0;">
             <label>Nome do Serviço <span class="required">*</span></label>
-
-            <input
-              type="text"
-              name="servico_${servicoCounter}_nome"
+            <input 
+              type="text" 
+              name="servico_${servicoCounter}_nome" 
               placeholder="Ex: Manutenção Preventiva Anual"
               required
             >
           </div>
-
           <div class="servico-row">
             <div class="form-group" style="margin-bottom: 0;">
               <label>Descrição <span class="optional">(Opcional)</span></label>
-
-              <input
-                type="text"
-                name="servico_${servicoCounter}_descricao"
+              <input 
+                type="text" 
+                name="servico_${servicoCounter}_descricao" 
                 placeholder="Ex: Verificação completa; Limpeza de módulos; Teste de tensão"
               >
             </div>
-
             <div class="form-group" style="margin-bottom: 0;">
               <label>Valor (R$) <span class="required">*</span></label>
-
-              <input
-                type="number"
-                name="servico_${servicoCounter}_valor"
-                step="0.01"
+              <input 
+                type="number" 
+                name="servico_${servicoCounter}_valor" 
+                step="0.01" 
                 min="0"
                 placeholder="150.00"
                 required
@@ -846,158 +883,104 @@ select:focus {
           </div>
         </div>
       `;
-
+      
       servicosList.appendChild(servicoDiv);
     }
-
+    
     function removerServico(id) {
       const servico = document.getElementById(`servico-${id}`);
-
-      if (servico) {
-        servico.remove();
-      }
+      if (servico) servico.remove();
     }
-
+    
     btnAddServico.addEventListener('click', adicionarServico);
-
+    
     // ==========================================
     // SUBMIT FORM
     // ==========================================
-
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
-
-      const tipoSelecionado =
-        document.querySelector('input[name="tipoCliente"]:checked').value;
-
-      // ==========================================
-      // DEFINIR WEBHOOK
-      // ==========================================
-
-      const ambienteSelecionado =
-        document.querySelector('input[name="ambiente"]:checked').value;
-
-      const webhookUrl =
-        ambienteSelecionado === 'Server Gauss'
-          ? WEBHOOKS.server
-          : WEBHOOKS.local;
-
-      // ==========================================
-      // VALIDAÇÃO AVULSO
-      // ==========================================
-
+      
+      const tipoSelecionado = document.querySelector('input[name="tipoCliente"]:checked').value;
+      
+      // Validação Avulso
       if (tipoSelecionado === 'Avulso' && servicosList.children.length === 0) {
         alert('⚠️ Adicione pelo menos 1 serviço avulso!');
         return;
       }
-
-      // ==========================================
-      // VALIDAÇÃO LIMPEZA
-      // ==========================================
-
+      
+      // Validação Limpeza
       if (tipoSelecionado === 'Limpeza') {
         if (!camposCidade.value.trim()) {
           alert('⚠️ Cidade é obrigatória para proposta de limpeza!');
           return;
         }
-
         if (!camposPlacas.value || parseInt(camposPlacas.value) <= 0) {
           alert('⚠️ Quantidade de placas é obrigatória para proposta de limpeza!');
           return;
         }
       }
-
-      // ==========================================
-      // FORM DATA
-      // ==========================================
-
+      
       const formData = new FormData(form);
       const data = {};
-
+      
       // Processar campos normais
       formData.forEach((value, key) => {
         if (!key.startsWith('servico_')) {
           data[key] = value;
         }
       });
-
-      // ==========================================
-      // PROCESSAR SERVIÇOS
-      // ==========================================
-
+      
+      // ✅ PROCESSAR SERVIÇOS - DESCRIÇÃO OPCIONAL
       data.servicosAvulsos = [];
-
-      const servicosElements =
-        servicosList.querySelectorAll('.servico-item');
-
+      const servicosElements = servicosList.querySelectorAll('.servico-item');
+      
       servicosElements.forEach((servicoEl) => {
-        const id = servicoEl.id.split('-')[1];
-
-        const nome =
-          formData.get(`servico_${id}_nome`);
-
-        const descricao =
-          formData.get(`servico_${id}_descricao`) || '';
-
-        const valor =
-          parseFloat(formData.get(`servico_${id}_valor`)) || 0;
-
+        const id        = servicoEl.id.split('-')[1];
+        const nome      = formData.get(`servico_${id}_nome`);
+        const descricao = formData.get(`servico_${id}_descricao`) || '';
+        const valor     = parseFloat(formData.get(`servico_${id}_valor`)) || 0;
+        
         if (nome && nome.trim() !== '' && valor > 0) {
-          data.servicosAvulsos.push({
-            nome,
+          data.servicosAvulsos.push({ 
+            nome, 
             descricao: descricao.trim(),
-            valor
+            valor 
           });
         }
       });
-
-      // ==========================================
-      // CAPTURAR CHECKBOXES
-      // ==========================================
-
+      
+      // ✅ CAPTURAR CHECKBOXES
       data.servicosEspecificosPersonalizados = [];
-
-      const checkMonitoramento =
-        document.getElementById('checkMonitoramento');
-
-      const checkGarantia =
-        document.getElementById('checkGarantia');
-
-      const checkLimpeza =
-        document.getElementById('checkLimpeza');
-
+      
+      const checkMonitoramento = document.getElementById('checkMonitoramento');
+      const checkGarantia      = document.getElementById('checkGarantia');
+      const checkLimpeza       = document.getElementById('checkLimpeza');
+      
       if (checkMonitoramento && checkMonitoramento.checked) {
         data.servicosEspecificosPersonalizados.push('monitoramento');
       }
-
       if (checkGarantia && checkGarantia.checked) {
         data.servicosEspecificosPersonalizados.push('garantia');
       }
-
       if (checkLimpeza && checkLimpeza.checked) {
         data.servicosEspecificosPersonalizados.push('limpezas');
       }
 
-      // ==========================================
+      // ✅ REGISTRAR QUAL SERVIDOR FOI USADO
+      data.servidorUtilizado = servidorAtivo;
+      
+      // URL do webhook baseada na seleção do servidor
+      const webhookUrl = getWebhookUrl();
+
       // DEBUG
-      // ==========================================
-
       debugBox.classList.remove('hidden');
-
-      debugContent.textContent = JSON.stringify({
-        ambiente: ambienteSelecionado,
-        webhook: webhookUrl,
-        dados: data
-      }, null, 2);
-
-      console.log('📤 AMBIENTE:', ambienteSelecionado);
-      console.log('📤 WEBHOOK:', webhookUrl);
-      console.log('📤 DADOS SENDO ENVIADOS:', data);
-
-      // ==========================================
-      // ENVIAR
-      // ==========================================
-
+      debugContent.textContent =
+        `🖥️ Servidor: ${servidorAtivo.toUpperCase()} → ${webhookUrl}\n\n` +
+        JSON.stringify(data, null, 2);
+      console.log('🖥️ Servidor selecionado:', servidorAtivo);
+      console.log('🔗 Webhook URL:', webhookUrl);
+      console.log('📤 Dados enviados:', data);
+      
       try {
         const response = await fetch(webhookUrl, {
           method: 'POST',
@@ -1006,56 +989,32 @@ select:focus {
           },
           body: JSON.stringify(data)
         });
-
+        
         if (response.ok) {
           form.classList.add('hidden');
-
-          document
-            .getElementById('successMessage')
-            .classList.remove('hidden');
-
-          document
-            .getElementById('successMessage')
-            .classList.add('fade-in');
-
+          document.getElementById('successMessage').classList.remove('hidden');
+          document.getElementById('successMessage').classList.add('fade-in');
+          
           setTimeout(() => {
             form.reset();
-
             servicosList.innerHTML = '';
-
             servicoCounter = 0;
-
             form.classList.remove('hidden');
-
-            document
-              .getElementById('successMessage')
-              .classList.add('hidden');
-
+            document.getElementById('successMessage').classList.add('hidden');
             debugBox.classList.add('hidden');
-
             atualizarFormulario();
-
           }, 3000);
-
         } else {
           alert('❌ Erro ao enviar proposta. Tente novamente.');
         }
-
       } catch (error) {
         console.error('Erro:', error);
-
-        alert(
-          '❌ Erro de conexão. Verifique sua internet ou o ambiente selecionado.'
-        );
+        alert('❌ Erro de conexão. Verifique sua internet.');
       }
     });
-
-    // ==========================================
-    // INICIALIZAR
-    // ==========================================
-
+    
+    // Inicializar
     atualizarFormulario();
-
   </script>
 
 </body>
