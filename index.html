@@ -5,12 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nova Proposta - Gauss Energia</title>
   <style>
-    /* ============================================================
-       Gauss Energia — Design tokens
-       (mesmos tokens de colors_and_type.css, embutidos para que
-       este arquivo funcione sozinho, sem depender de caminhos
-       relativos para fontes/assets)
-       ============================================================ */
     @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Bebas+Neue&display=swap');
 
     :root {
@@ -87,7 +81,7 @@
       overflow: hidden;
     }
 
-    /* -------- Header (hero, ink-1000) -------- */
+    /* -------- Header -------- */
     .header {
       background: var(--ink-1000);
       color: var(--white);
@@ -135,9 +129,7 @@
       color: rgba(255,255,255,0.62);
     }
 
-    /* ==========================================
-       SERVER SELECTOR BANNER
-       ========================================== */
+    /* -------- Server selector -------- */
     .server-selector-banner {
       display: flex;
       align-items: center;
@@ -189,7 +181,6 @@
     }
 
     .server-btn:hover { color: var(--ink-200); }
-
     .server-btn svg { width: 13px; height: 13px; }
 
     .server-btn.active-gauss {
@@ -235,10 +226,9 @@
       0%, 100% { opacity: 1; }
       50% { opacity: 0.35; }
     }
-    /* ========================================== */
 
+    /* -------- Form layout -------- */
     .form-content { padding: var(--space-6); }
-
     .section { margin-bottom: var(--space-6); }
 
     .section-title {
@@ -314,10 +304,21 @@
       box-shadow: var(--shadow-glow-green);
     }
 
+    /* -------- Radio groups -------- */
     .radio-group {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
+    }
+
+    /* Serviços especiais: coluna única + alinhamento esquerdo */
+    .radio-group.servicos-especiais-group {
+      grid-template-columns: 1fr;
+    }
+
+    .radio-group.servicos-especiais-group .radio-label {
+      justify-content: flex-start;
+      text-align: left;
     }
 
     .radio-option { position: relative; }
@@ -367,25 +368,20 @@
       stroke: var(--gauss-green-900);
     }
 
-    /* Premium mantém o mesmo verde de seleção — sistema é
-       monocromático + um único acento — mas ganha um selo de
-       destaque em ink escuro para se diferenciar sem 2ª cor. */
-    .radio-option.premium .radio-label {
-      border-style: dashed;
-    }
-    .radio-option.premium input[type="radio"]:checked + .radio-label {
-      border-style: solid;
-    }
+    .radio-option.premium .radio-label { border-style: dashed; }
+    .radio-option.premium input[type="radio"]:checked + .radio-label { border-style: solid; }
 
+    /* -------- Utilities -------- */
     .hidden { display: none !important; }
 
     .fade-in { animation: fadeIn 0.25s ease-in; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* -------- Alert -------- */
     .alert {
       display: flex;
       gap: 14px;
@@ -407,12 +403,9 @@
       color: var(--ink-900);
     }
 
-    .alert-text {
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--fg-2);
-    }
+    .alert-text { font-size: 13px; line-height: 1.5; color: var(--fg-2); }
 
+    /* -------- Serviços avulsos -------- */
     .servico-item {
       background: var(--bg-paper);
       border: 1px solid var(--border-hairline);
@@ -453,11 +446,7 @@
 
     .btn-remover:hover { background: var(--signal-warn); color: var(--white); }
 
-    .servico-fields {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-3);
-    }
+    .servico-fields { display: flex; flex-direction: column; gap: var(--space-3); }
 
     .servico-row {
       display: grid;
@@ -492,6 +481,7 @@
       background: var(--gauss-green-100);
     }
 
+    /* -------- Submit -------- */
     .btn-submit {
       display: flex;
       align-items: center;
@@ -514,16 +504,11 @@
 
     .btn-submit svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; transition: transform 0.15s ease; }
 
-    .btn-submit:hover {
-      background: var(--gauss-green-700);
-      color: var(--white);
-      box-shadow: var(--shadow-md);
-    }
-
+    .btn-submit:hover { background: var(--gauss-green-700); color: var(--white); box-shadow: var(--shadow-md); }
     .btn-submit:hover svg { transform: translateX(2px); }
-
     .btn-submit:active { transform: translateY(1px); }
 
+    /* -------- Success -------- */
     .success-message {
       background: var(--gauss-green-100);
       border: 1px solid var(--gauss-green);
@@ -540,72 +525,25 @@
       background: var(--gauss-green);
       display: flex; align-items: center; justify-content: center;
     }
+
     .success-message .success-icon svg { width: 18px; height: 18px; stroke: var(--ink-1000); fill: none; stroke-width: 2.5; }
 
-    .success-message h3 {
-      font-family: var(--font-display);
-      color: var(--gauss-green-900);
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-
-    .success-message p { font-size: 13px; color: var(--fg-2); }
-
-    .checkbox-group {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-3);
-      padding: var(--space-4);
-      background: var(--bg-paper);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-hairline);
-    }
-
-    .checkbox-option {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px;
-      background: var(--white);
-      border: 1px solid transparent;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .checkbox-option:hover { border-color: var(--gauss-green-300); background: var(--gauss-green-100); }
-
-    .checkbox-option svg { width: 18px; height: 18px; stroke: var(--ink-600); fill: none; stroke-width: 1.75; flex-shrink: 0; }
-
-    .checkbox-option input[type="checkbox"] {
-      width: 17px;
-      height: 17px;
-      cursor: pointer;
-      accent-color: var(--gauss-green);
-    }
-
-    .checkbox-option label {
-      cursor: pointer;
-      margin: 0;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--fg-1);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .success-message h3 { font-family: var(--font-display); color: var(--gauss-green-900); font-size: 16px; margin-bottom: 4px; }
+    .success-message p  { font-size: 13px; color: var(--fg-2); }
   </style>
 </head>
 <body>
   <div class="container">
+
+    <!-- ===== HEADER ===== -->
     <div class="header">
       <div class="mark">
         <svg viewBox="-3 -3 156 98" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <polygon points="0,0 27,0 37,16 0,16" fill="#39B54A"/>
-          <polygon points="61,0 150,0 150,16 72,16" fill="#39B54A"/>
-          <polygon points="0,38 44,38 54,54 0,54" fill="#39B54A"/>
+          <polygon points="0,0 27,0 37,16 0,16"       fill="#39B54A"/>
+          <polygon points="61,0 150,0 150,16 72,16"   fill="#39B54A"/>
+          <polygon points="0,38 44,38 54,54 0,54"     fill="#39B54A"/>
           <polygon points="78,38 150,38 150,54 89,54" fill="#39B54A"/>
-          <polygon points="0,76 61,76 71,92 0,92" fill="#39B54A"/>
+          <polygon points="0,76 61,76 71,92 0,92"     fill="#39B54A"/>
           <polygon points="96,76 150,76 150,92 106,92" fill="#39B54A"/>
         </svg>
         <span class="gauss-wordmark">Gauss</span>
@@ -615,32 +553,28 @@
       <p>Sistema de geração de propostas — Gauss Energia</p>
     </div>
 
-    <!-- ==========================================
-         SERVER SELECTOR BANNER
-         ========================================== -->
+    <!-- ===== SERVER SELECTOR ===== -->
     <div class="server-selector-banner">
       <div class="server-selector-label">
-        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="12" rx="1.5"/>
+          <line x1="8" y1="20" x2="16" y2="20"/>
+          <line x1="12" y1="16" x2="12" y2="20"/>
+        </svg>
         Servidor
       </div>
 
       <div class="server-toggle">
-        <button
-          type="button"
-          class="server-btn active-gauss"
-          id="btnServerGauss"
-          onclick="selecionarServidor('gauss')"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4 4 0 0 1-1-7.9 5 5 0 0 1 9.6-2A4.5 4.5 0 0 1 17 18H7Z"/></svg>
+        <button type="button" class="server-btn active-gauss" id="btnServerGauss" onclick="selecionarServidor('gauss')">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 18a4 4 0 0 1-1-7.9 5 5 0 0 1 9.6-2A4.5 4.5 0 0 1 17 18H7Z"/>
+          </svg>
           Server Gauss
         </button>
-        <button
-          type="button"
-          class="server-btn"
-          id="btnServerLocal"
-          onclick="selecionarServidor('local')"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7"/><path d="M6 10v9h12v-9"/></svg>
+        <button type="button" class="server-btn" id="btnServerLocal" onclick="selecionarServidor('local')">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 11 12 4l8 7"/><path d="M6 10v9h12v-9"/>
+          </svg>
           Local
         </button>
       </div>
@@ -650,19 +584,17 @@
         <span id="serverUrl">n8n.gaussenergia.com.br/webhook/...</span>
       </div>
     </div>
-    <!-- ========================================== -->
 
+    <!-- ===== FORM ===== -->
     <div class="form-content">
       <form id="propostaForm">
 
-        <!-- SEÇÃO TIPO DE PROPOSTA -->
+        <!-- TIPO DE PROPOSTA -->
         <div class="section">
           <h2 class="section-title">Tipo de proposta</h2>
 
           <div class="form-group">
-            <label>
-              Selecione o tipo de proposta <span class="required">*</span>
-            </label>
+            <label>Selecione o tipo de proposta <span class="required">*</span></label>
             <div class="radio-group">
               <div class="radio-option">
                 <input type="radio" id="tipoComum" name="tipoCliente" value="Comum" checked>
@@ -678,14 +610,14 @@
                   Premium
                 </label>
               </div>
-              <div class="radio-option avulso">
+              <div class="radio-option">
                 <input type="radio" id="tipoAvulso" name="tipoCliente" value="Avulso">
                 <label for="tipoAvulso" class="radio-label">
                   <svg viewBox="0 0 24 24"><path d="M14.7 6.3a3 3 0 0 0-4.24 4.24L4 17v3h3l6.46-6.46a3 3 0 0 0 4.24-4.24l-2.3 2.3-2-2 2.3-2.3Z"/></svg>
                   Só avulso
                 </label>
               </div>
-              <div class="radio-option limpeza">
+              <div class="radio-option">
                 <input type="radio" id="tipoLimpeza" name="tipoCliente" value="Limpeza">
                 <label for="tipoLimpeza" class="radio-label">
                   <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="20" y2="21"/><path d="M9 21V9l6-4v16"/><line x1="9" y1="13" x2="15" y2="13"/></svg>
@@ -696,130 +628,112 @@
           </div>
         </div>
 
-        <!-- SELEÇÃO DE SERVIÇOS ESPECÍFICOS -->
+        <!-- =====================================================
+             SERVIÇOS ESPECIAIS
+             ===================================================== -->
         <div class="section hidden" id="servicosEspecificosSection">
-          <h2 class="section-title">Serviços específicos (opcional)</h2>
+          <h2 class="section-title">Serviços especiais</h2>
 
           <div class="alert">
             <div class="alert-icon">
-              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><circle cx="12" cy="16" r="0.6" fill="currentColor"/></svg>
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <line x1="12" y1="8" x2="12" y2="13"/>
+                <circle cx="12" cy="16" r="0.6" fill="currentColor"/>
+              </svg>
             </div>
             <div>
-              <div class="alert-title">Personalização de serviços</div>
+              <div class="alert-title">Oferta cruzada com desconto</div>
               <div class="alert-text">
-                Marque abaixo se deseja oferecer apenas serviços específicos. Deixe desmarcado para oferta padrão baseada na cidade.
+                Selecione o serviço principal da proposta e o cliente receberá automaticamente uma oferta do serviço complementar com desconto.
               </div>
             </div>
           </div>
 
-          <div class="checkbox-group" id="servicosCheckboxes">
-            <div class="checkbox-option">
-              <input type="checkbox" id="checkMonitoramento" value="monitoramento">
-              <label for="checkMonitoramento">
-                <svg viewBox="0 0 24 24"><line x1="12" y1="3" x2="12" y2="21"/><line x1="6" y1="7" x2="18" y2="7"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                Monitoramento remoto
+          <!-- Radio group em coluna única -->
+          <div class="radio-group servicos-especiais-group">
+
+            <!-- Nenhum (padrão) -->
+            <div class="radio-option">
+              <input type="radio" id="servicoEspecialNenhum" name="servicoEspecial" value="nenhum" checked>
+              <label for="servicoEspecialNenhum" class="radio-label">
+                <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Nenhum serviço especial
               </label>
             </div>
-            <div class="checkbox-option">
-              <input type="checkbox" id="checkGarantia" value="garantia">
-              <label for="checkGarantia">
-                <svg viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3Z"/></svg>
-                Garantia estendida
+
+            <!-- Limpeza → oferta Garantia Estendida c/ desconto -->
+            <div class="radio-option">
+              <input type="radio" id="servicoEspecialLimpezaGarantia" name="servicoEspecial" value="limpeza_oferecendo_garantia">
+              <label for="servicoEspecialLimpezaGarantia" class="radio-label">
+                <svg viewBox="0 0 24 24">
+                  <line x1="4" y1="21" x2="20" y2="21"/>
+                  <path d="M9 21V9l6-4v16"/>
+                  <line x1="9" y1="13" x2="15" y2="13"/>
+                </svg>
+                Limpeza, oferecendo Garantia Estendida com desconto
               </label>
             </div>
-            <div class="checkbox-option">
-              <input type="checkbox" id="checkLimpeza" value="limpezas">
-              <label for="checkLimpeza">
-                <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="20" y2="21"/><path d="M9 21V9l6-4v16"/><line x1="9" y1="13" x2="15" y2="13"/></svg>
-                Limpeza
+
+            <!-- Garantia Estendida → oferta Limpeza c/ desconto -->
+            <div class="radio-option">
+              <input type="radio" id="servicoEspecialGarantiaLimpeza" name="servicoEspecial" value="garantia_oferecendo_limpeza">
+              <label for="servicoEspecialGarantiaLimpeza" class="radio-label">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3Z"/>
+                </svg>
+                Garantia Estendida, oferecendo limpeza com desconto
               </label>
             </div>
+
           </div>
         </div>
+        <!-- ===================================================== -->
 
         <!-- ALERTA MODO AVULSO -->
         <div id="alertaAvulso" class="alert hidden">
           <div class="alert-icon">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a3 3 0 0 0-4.24 4.24L4 17v3h3l6.46-6.46a3 3 0 0 0 4.24-4.24l-2.3 2.3-2-2 2.3-2.3Z"/></svg>
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3a3 3 0 0 0-4.24 4.24L4 17v3h3l6.46-6.46a3 3 0 0 0 4.24-4.24l-2.3 2.3-2-2 2.3-2.3Z"/>
+            </svg>
           </div>
           <div>
             <div class="alert-title">Modo avulso ativado</div>
-            <div class="alert-text">
-              Neste modo, campos como potência são opcionais. Adicione pelo menos 1 serviço abaixo.
-            </div>
+            <div class="alert-text">Neste modo, campos como potência são opcionais. Adicione pelo menos 1 serviço abaixo.</div>
           </div>
         </div>
 
-        <!-- SEÇÃO INFORMAÇÕES GERAIS -->
+        <!-- INFORMAÇÕES GERAIS -->
         <div class="section" id="infoGeraisSection">
           <h2 class="section-title">Informações gerais</h2>
 
           <div class="form-group">
-            <label for="nomeCliente">
-              Nome do cliente <span class="required">*</span>
-            </label>
-            <input
-              type="text"
-              id="nomeCliente"
-              name="nomeCliente"
-              required
-              placeholder="João Silva"
-            >
+            <label for="nomeCliente">Nome do cliente <span class="required">*</span></label>
+            <input type="text" id="nomeCliente" name="nomeCliente" required placeholder="João Silva">
           </div>
 
           <div class="form-group">
-            <label for="cidade">
-              Cidade <span class="required">*</span>
-            </label>
-            <input
-              type="text"
-              id="cidade"
-              name="cidade"
-              required
-              placeholder="Irecê"
-            >
+            <label for="cidade">Cidade <span class="required">*</span></label>
+            <input type="text" id="cidade" name="cidade" required placeholder="Irecê">
           </div>
 
           <div class="form-group">
-            <label for="potencia">
-              Potência do sistema (kWp) <span class="required">*</span>
-            </label>
-            <input
-              type="number"
-              id="potencia"
-              name="potencia"
-              step="0.001"
-              min="0"
-              required
-              placeholder="5,940"
-            >
+            <label for="potencia">Potência do sistema (kWp) <span class="required">*</span></label>
+            <input type="number" id="potencia" name="potencia" step="0.001" min="0" required placeholder="5,940">
           </div>
 
           <div class="form-group">
-            <label for="placas">
-              Quantidade de placas <span class="required">*</span>
-            </label>
-            <input
-              type="number"
-              id="placas"
-              name="placas"
-              min="0"
-              required
-              placeholder="11"
-            >
+            <label for="placas">Quantidade de placas <span class="required">*</span></label>
+            <input type="number" id="placas" name="placas" min="0" required placeholder="11">
           </div>
         </div>
 
         <!-- SEÇÃO PREMIUM -->
         <div class="section hidden" id="premiumSection">
-          <h2 class="section-title premium-title">
-            Informações premium
-          </h2>
+          <h2 class="section-title premium-title">Informações premium</h2>
 
           <div class="form-group">
-            <label>
-              Incluir serviço de limpeza? <span class="required">*</span>
-            </label>
+            <label>Incluir serviço de limpeza? <span class="required">*</span></label>
             <div class="radio-group">
               <div class="radio-option">
                 <input type="radio" id="limpezaSim" name="temLimpeza" value="Sim">
@@ -833,21 +747,14 @@
           </div>
 
           <div class="form-group">
-            <label for="projetosInclusos">
-              Projetos inclusos <span class="required">*</span>
-            </label>
-            <textarea
-              id="projetosInclusos"
-              name="projetosInclusos"
-              rows="3"
-              placeholder="Ex: Projeto Elétrico, Projeto Estrutural, ART"
-            ></textarea>
+            <label for="projetosInclusos">Projetos inclusos <span class="required">*</span></label>
+            <textarea id="projetosInclusos" name="projetosInclusos" rows="3" placeholder="Ex: Projeto Elétrico, Projeto Estrutural, ART"></textarea>
           </div>
         </div>
 
-        <!-- SEÇÃO SERVIÇOS AVULSOS -->
+        <!-- SERVIÇOS AVULSOS -->
         <div class="section">
-          <h2 class="section-title">Serviços avulsos (opcional)</h2>
+          <h2 class="section-title">Serviços avulsos <span class="optional" style="text-transform:none;letter-spacing:0;font-size:11px;">(opcional)</span></h2>
 
           <div id="servicosList"></div>
 
@@ -857,7 +764,7 @@
           </button>
         </div>
 
-        <!-- BOTÃO SUBMIT -->
+        <!-- SUBMIT -->
         <button type="submit" class="btn-submit">
           Gerar proposta
           <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
@@ -871,10 +778,9 @@
         <h3>Proposta enviada com sucesso</h3>
         <p>O PDF será gerado em instantes.</p>
       </div>
-
     </div>
 
-  </div>
+  </div><!-- /.container -->
 
   <script>
     // ==========================================
@@ -885,17 +791,16 @@
       local: 'https://dexterity-copper-resistant.ngrok-free.dev/webhook/gauss-proposta'
     };
 
-    let servidorAtivo = 'gauss'; // Padrão: Server Gauss
+    let servidorAtivo = 'gauss';
 
     function selecionarServidor(servidor) {
       servidorAtivo = servidor;
 
-      const btnGauss    = document.getElementById('btnServerGauss');
-      const btnLocal    = document.getElementById('btnServerLocal');
-      const serverDot   = document.getElementById('serverDot');
-      const serverUrl   = document.getElementById('serverUrl');
+      const btnGauss  = document.getElementById('btnServerGauss');
+      const btnLocal  = document.getElementById('btnServerLocal');
+      const serverDot = document.getElementById('serverDot');
+      const serverUrl = document.getElementById('serverUrl');
 
-      // Reset dos botões
       btnGauss.className = 'server-btn';
       btnLocal.className = 'server-btn';
 
@@ -919,8 +824,7 @@
     // ==========================================
     let servicoCounter = 0;
 
-    const form = document.getElementById('propostaForm');
-
+    const form         = document.getElementById('propostaForm');
     const radioComum   = document.getElementById('tipoComum');
     const radioPremium = document.getElementById('tipoPremium');
     const radioAvulso  = document.getElementById('tipoAvulso');
@@ -930,24 +834,25 @@
     const premiumSection             = document.getElementById('premiumSection');
     const servicosEspecificosSection = document.getElementById('servicosEspecificosSection');
     const alertaAvulso               = document.getElementById('alertaAvulso');
+    const servicosList               = document.getElementById('servicosList');
+    const btnAddServico              = document.getElementById('btnAddServico');
 
-    const servicosList  = document.getElementById('servicosList');
-    const btnAddServico = document.getElementById('btnAddServico');
-
-    const camposCidade   = document.getElementById('cidade');
-    const camposPotencia = document.getElementById('potencia');
-    const camposPlacas   = document.getElementById('placas');
+    const camposCidade     = document.getElementById('cidade');
+    const camposPotencia   = document.getElementById('potencia');
+    const camposPlacas     = document.getElementById('placas');
     const projetosInclusos = document.getElementById('projetosInclusos');
-
-
 
     // ==========================================
     // LÓGICA CONDICIONAL - TIPO DE PROPOSTA
     // ==========================================
     function atualizarFormulario() {
-      const tipoSelecionado = document.querySelector('input[name="tipoCliente"]:checked').value;
+      const tipo = document.querySelector('input[name="tipoCliente"]:checked').value;
 
-      if (tipoSelecionado === 'Comum') {
+      // Reset servico especial para "nenhum" ao trocar de tipo
+      const radioNenhum = document.getElementById('servicoEspecialNenhum');
+      if (radioNenhum) radioNenhum.checked = true;
+
+      if (tipo === 'Comum') {
         infoGeraisSection.classList.remove('hidden');
         premiumSection.classList.add('hidden');
         servicosEspecificosSection.classList.remove('hidden');
@@ -959,7 +864,7 @@
         camposPlacas.required   = true;
         projetosInclusos.required = false;
 
-      } else if (tipoSelecionado === 'Premium') {
+      } else if (tipo === 'Premium') {
         infoGeraisSection.classList.remove('hidden');
         premiumSection.classList.remove('hidden');
         premiumSection.classList.add('fade-in');
@@ -972,7 +877,7 @@
         camposPlacas.required   = true;
         projetosInclusos.required = true;
 
-      } else if (tipoSelecionado === 'Avulso') {
+      } else if (tipo === 'Avulso') {
         infoGeraisSection.classList.remove('hidden');
         premiumSection.classList.add('hidden');
         servicosEspecificosSection.classList.add('hidden');
@@ -984,11 +889,9 @@
         camposPlacas.required   = false;
         projetosInclusos.required = false;
 
-        if (servicoCounter === 0) {
-          adicionarServico();
-        }
+        if (servicoCounter === 0) adicionarServico();
 
-      } else if (tipoSelecionado === 'Limpeza') {
+      } else if (tipo === 'Limpeza') {
         infoGeraisSection.classList.remove('hidden');
         premiumSection.classList.add('hidden');
         servicosEspecificosSection.classList.add('hidden');
@@ -1001,13 +904,13 @@
       }
     }
 
-    radioComum.addEventListener('change', atualizarFormulario);
+    radioComum.addEventListener('change',   atualizarFormulario);
     radioPremium.addEventListener('change', atualizarFormulario);
-    radioAvulso.addEventListener('change', atualizarFormulario);
+    radioAvulso.addEventListener('change',  atualizarFormulario);
     radioLimpeza.addEventListener('change', atualizarFormulario);
 
     // ==========================================
-    // SERVIÇOS AVULSOS - ADICIONAR/REMOVER
+    // SERVIÇOS AVULSOS
     // ==========================================
     function adicionarServico() {
       servicoCounter++;
@@ -1019,39 +922,21 @@
       servicoDiv.innerHTML = `
         <div class="servico-header">
           <span class="servico-numero">Serviço #${servicoCounter}</span>
-          <button type="button" class="btn-remover" onclick="removerServico(${servicoCounter})">
-            Remover
-          </button>
+          <button type="button" class="btn-remover" onclick="removerServico(${servicoCounter})">Remover</button>
         </div>
         <div class="servico-fields">
-          <div class="form-group" style="margin-bottom: 0;">
+          <div class="form-group" style="margin-bottom:0;">
             <label>Nome do serviço <span class="required">*</span></label>
-            <input
-              type="text"
-              name="servico_${servicoCounter}_nome"
-              placeholder="Ex: Manutenção Preventiva Anual"
-              required
-            >
+            <input type="text" name="servico_${servicoCounter}_nome" placeholder="Ex: Manutenção Preventiva Anual" required>
           </div>
           <div class="servico-row">
-            <div class="form-group" style="margin-bottom: 0;">
+            <div class="form-group" style="margin-bottom:0;">
               <label>Descrição <span class="optional">(Opcional)</span></label>
-              <input
-                type="text"
-                name="servico_${servicoCounter}_descricao"
-                placeholder="Ex: Verificação completa; Limpeza de módulos; Teste de tensão"
-              >
+              <input type="text" name="servico_${servicoCounter}_descricao" placeholder="Ex: Verificação completa; Limpeza de módulos; Teste de tensão">
             </div>
-            <div class="form-group" style="margin-bottom: 0;">
+            <div class="form-group" style="margin-bottom:0;">
               <label>Valor (R$) <span class="required">*</span></label>
-              <input
-                type="number"
-                name="servico_${servicoCounter}_valor"
-                step="0.01"
-                min="0"
-                placeholder="150.00"
-                required
-              >
+              <input type="number" name="servico_${servicoCounter}_valor" step="0.01" min="0" placeholder="150.00" required>
             </div>
           </div>
         </div>
@@ -1061,28 +946,26 @@
     }
 
     function removerServico(id) {
-      const servico = document.getElementById(`servico-${id}`);
-      if (servico) servico.remove();
+      const el = document.getElementById(`servico-${id}`);
+      if (el) el.remove();
     }
 
     btnAddServico.addEventListener('click', adicionarServico);
 
     // ==========================================
-    // SUBMIT FORM
+    // SUBMIT
     // ==========================================
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      const tipoSelecionado = document.querySelector('input[name="tipoCliente"]:checked').value;
+      const tipo = document.querySelector('input[name="tipoCliente"]:checked').value;
 
-      // Validação Avulso
-      if (tipoSelecionado === 'Avulso' && servicosList.children.length === 0) {
+      if (tipo === 'Avulso' && servicosList.children.length === 0) {
         alert('Adicione pelo menos 1 serviço avulso.');
         return;
       }
 
-      // Validação Limpeza
-      if (tipoSelecionado === 'Limpeza') {
+      if (tipo === 'Limpeza') {
         if (!camposCidade.value.trim()) {
           alert('Cidade é obrigatória para proposta de limpeza.');
           return;
@@ -1096,84 +979,54 @@
       const formData = new FormData(form);
       const data = {};
 
-      // Processar campos normais
+      // Campos normais (inclui automaticamente "servicoEspecial" via FormData)
       formData.forEach((value, key) => {
         if (!key.startsWith('servico_')) {
           data[key] = value;
         }
       });
 
-      // PROCESSAR SERVIÇOS - DESCRIÇÃO OPCIONAL
+      // Serviços avulsos
       data.servicosAvulsos = [];
-      const servicosElements = servicosList.querySelectorAll('.servico-item');
-
-      servicosElements.forEach((servicoEl) => {
-        const id        = servicoEl.id.split('-')[1];
+      servicosList.querySelectorAll('.servico-item').forEach(el => {
+        const id        = el.id.split('-')[1];
         const nome      = formData.get(`servico_${id}_nome`);
         const descricao = formData.get(`servico_${id}_descricao`) || '';
         const valor     = parseFloat(formData.get(`servico_${id}_valor`)) || 0;
 
         if (nome && nome.trim() !== '' && valor > 0) {
-          data.servicosAvulsos.push({
-            nome,
-            descricao: descricao.trim(),
-            valor
-          });
+          data.servicosAvulsos.push({ nome, descricao: descricao.trim(), valor });
         }
       });
 
-      // CAPTURAR CHECKBOXES
-      data.servicosEspecificosPersonalizados = [];
-
-      const checkMonitoramento = document.getElementById('checkMonitoramento');
-      const checkGarantia      = document.getElementById('checkGarantia');
-      const checkLimpeza       = document.getElementById('checkLimpeza');
-
-      if (checkMonitoramento && checkMonitoramento.checked) {
-        data.servicosEspecificosPersonalizados.push('monitoramento');
-      }
-      if (checkGarantia && checkGarantia.checked) {
-        data.servicosEspecificosPersonalizados.push('garantia');
-      }
-      if (checkLimpeza && checkLimpeza.checked) {
-        data.servicosEspecificosPersonalizados.push('limpezas');
-      }
-
-      // REGISTRAR QUAL SERVIDOR FOI USADO
       data.servidorUtilizado = servidorAtivo;
 
-      // URL do webhook baseada na seleção do servidor
-      const webhookUrl = getWebhookUrl();
-
-
-
       try {
-        const response = await fetch(webhookUrl, {
+        const response = await fetch(getWebhookUrl(), {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
 
         if (response.ok) {
           form.classList.add('hidden');
-          document.getElementById('successMessage').classList.remove('hidden');
-          document.getElementById('successMessage').classList.add('fade-in');
+          const msg = document.getElementById('successMessage');
+          msg.classList.remove('hidden');
+          msg.classList.add('fade-in');
 
           setTimeout(() => {
             form.reset();
             servicosList.innerHTML = '';
             servicoCounter = 0;
             form.classList.remove('hidden');
-            document.getElementById('successMessage').classList.add('hidden');
+            msg.classList.add('hidden');
             atualizarFormulario();
           }, 3000);
         } else {
           alert('Erro ao enviar proposta. Tente novamente.');
         }
-      } catch (error) {
-        console.error('Erro:', error);
+      } catch (err) {
+        console.error('Erro:', err);
         alert('Erro de conexão. Verifique sua internet.');
       }
     });
