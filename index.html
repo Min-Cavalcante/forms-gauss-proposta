@@ -124,10 +124,7 @@
       margin-bottom: 6px;
     }
 
-    .header p {
-      font-size: 14px;
-      color: rgba(255,255,255,0.62);
-    }
+    .header p { font-size: 14px; color: rgba(255,255,255,0.62); }
 
     /* -------- Server selector -------- */
     .server-selector-banner {
@@ -183,10 +180,7 @@
     .server-btn:hover { color: var(--ink-200); }
     .server-btn svg { width: 13px; height: 13px; }
 
-    .server-btn.active-gauss {
-      background: var(--gauss-green);
-      color: var(--ink-1000);
-    }
+    .server-btn.active-gauss { background: var(--gauss-green); color: var(--ink-1000); }
 
     .server-btn.active-local {
       background: transparent;
@@ -212,8 +206,7 @@
     }
 
     .server-dot {
-      width: 6px;
-      height: 6px;
+      width: 6px; height: 6px;
       border-radius: 50%;
       flex-shrink: 0;
       animation: pulse-dot 2s infinite;
@@ -248,8 +241,7 @@
 
     .section-title::before {
       content: "";
-      width: 6px;
-      height: 6px;
+      width: 6px; height: 6px;
       border-radius: 999px;
       background: var(--gauss-green);
       flex-shrink: 0;
@@ -296,9 +288,7 @@
 
     input::placeholder, textarea::placeholder { color: var(--fg-3); }
 
-    input:focus,
-    textarea:focus,
-    select:focus {
+    input:focus, textarea:focus, select:focus {
       outline: none;
       border-color: var(--gauss-green);
       box-shadow: var(--shadow-glow-green);
@@ -311,7 +301,7 @@
       gap: 10px;
     }
 
-    /* Serviços especiais: coluna única + alinhamento esquerdo */
+    /* Serviços especiais: coluna única, alinhado à esquerda */
     .radio-group.servicos-especiais-group {
       grid-template-columns: 1fr;
     }
@@ -368,12 +358,42 @@
       stroke: var(--gauss-green-900);
     }
 
+    /* Premium: borda tracejada enquanto não marcado */
     .radio-option.premium .radio-label { border-style: dashed; }
     .radio-option.premium input[type="radio"]:checked + .radio-label { border-style: solid; }
 
+    /* ── Serviço Especial: badge + borda tracejada verde ── */
+    .radio-option.servico-especial .radio-label {
+      border-style: dashed;
+      border-color: var(--gauss-green-300);
+      position: relative;
+    }
+
+    .radio-option.servico-especial input[type="radio"]:checked + .radio-label {
+      border-style: solid;
+      border-color: var(--gauss-green);
+      background: var(--gauss-green-100);
+      color: var(--gauss-green-900);
+    }
+
+    /* Badge "NOVO" no canto superior direito */
+    .radio-option.servico-especial .radio-label::after {
+      content: "NOVO";
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      background: var(--gauss-green);
+      color: var(--ink-1000);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 2px 6px;
+      border-radius: 0 var(--radius-sm) 0 var(--radius-sm);
+    }
+
     /* -------- Utilities -------- */
     .hidden { display: none !important; }
-
     .fade-in { animation: fadeIn 0.25s ease-in; }
 
     @keyframes fadeIn {
@@ -527,7 +547,6 @@
     }
 
     .success-message .success-icon svg { width: 18px; height: 18px; stroke: var(--ink-1000); fill: none; stroke-width: 2.5; }
-
     .success-message h3 { font-family: var(--font-display); color: var(--gauss-green-900); font-size: 16px; margin-bottom: 4px; }
     .success-message p  { font-size: 13px; color: var(--fg-2); }
   </style>
@@ -539,11 +558,11 @@
     <div class="header">
       <div class="mark">
         <svg viewBox="-3 -3 156 98" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <polygon points="0,0 27,0 37,16 0,16"       fill="#39B54A"/>
-          <polygon points="61,0 150,0 150,16 72,16"   fill="#39B54A"/>
-          <polygon points="0,38 44,38 54,54 0,54"     fill="#39B54A"/>
-          <polygon points="78,38 150,38 150,54 89,54" fill="#39B54A"/>
-          <polygon points="0,76 61,76 71,92 0,92"     fill="#39B54A"/>
+          <polygon points="0,0 27,0 37,16 0,16"        fill="#39B54A"/>
+          <polygon points="61,0 150,0 150,16 72,16"    fill="#39B54A"/>
+          <polygon points="0,38 44,38 54,54 0,54"      fill="#39B54A"/>
+          <polygon points="78,38 150,38 150,54 89,54"  fill="#39B54A"/>
+          <polygon points="0,76 61,76 71,92 0,92"      fill="#39B54A"/>
           <polygon points="96,76 150,76 150,92 106,92" fill="#39B54A"/>
         </svg>
         <span class="gauss-wordmark">Gauss</span>
@@ -595,35 +614,70 @@
 
           <div class="form-group">
             <label>Selecione o tipo de proposta <span class="required">*</span></label>
+
             <div class="radio-group">
+
+              <!-- Comum -->
               <div class="radio-option">
                 <input type="radio" id="tipoComum" name="tipoCliente" value="Comum" checked>
                 <label for="tipoComum" class="radio-label">
-                  <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14"/><line x1="9" y1="5" x2="9" y2="19"/><line x1="14" y1="5" x2="14" y2="19"/><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="14" x2="20" y2="14"/></svg>
+                  <svg viewBox="0 0 24 24">
+                    <rect x="4" y="5" width="16" height="14"/>
+                    <line x1="9" y1="5" x2="9" y2="19"/>
+                    <line x1="14" y1="5" x2="14" y2="19"/>
+                    <line x1="4" y1="9" x2="20" y2="9"/>
+                    <line x1="4" y1="14" x2="20" y2="14"/>
+                  </svg>
                   Comum
                 </label>
               </div>
+
+              <!-- Premium -->
               <div class="radio-option premium">
                 <input type="radio" id="tipoPremium" name="tipoCliente" value="Premium">
                 <label for="tipoPremium" class="radio-label">
-                  <svg viewBox="0 0 24 24"><polygon points="12 3 14.5 9 21 9.5 16 13.8 17.5 20 12 16.6 6.5 20 8 13.8 3 9.5 9.5 9"/></svg>
+                  <svg viewBox="0 0 24 24">
+                    <polygon points="12 3 14.5 9 21 9.5 16 13.8 17.5 20 12 16.6 6.5 20 8 13.8 3 9.5 9.5 9"/>
+                  </svg>
                   Premium
                 </label>
               </div>
+
+              <!-- Só avulso -->
               <div class="radio-option">
                 <input type="radio" id="tipoAvulso" name="tipoCliente" value="Avulso">
                 <label for="tipoAvulso" class="radio-label">
-                  <svg viewBox="0 0 24 24"><path d="M14.7 6.3a3 3 0 0 0-4.24 4.24L4 17v3h3l6.46-6.46a3 3 0 0 0 4.24-4.24l-2.3 2.3-2-2 2.3-2.3Z"/></svg>
+                  <svg viewBox="0 0 24 24">
+                    <path d="M14.7 6.3a3 3 0 0 0-4.24 4.24L4 17v3h3l6.46-6.46a3 3 0 0 0 4.24-4.24l-2.3 2.3-2-2 2.3-2.3Z"/>
+                  </svg>
                   Só avulso
                 </label>
               </div>
+
+              <!-- Só limpeza -->
               <div class="radio-option">
                 <input type="radio" id="tipoLimpeza" name="tipoCliente" value="Limpeza">
                 <label for="tipoLimpeza" class="radio-label">
-                  <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="20" y2="21"/><path d="M9 21V9l6-4v16"/><line x1="9" y1="13" x2="15" y2="13"/></svg>
+                  <svg viewBox="0 0 24 24">
+                    <line x1="4" y1="21" x2="20" y2="21"/>
+                    <path d="M9 21V9l6-4v16"/>
+                    <line x1="9" y1="13" x2="15" y2="13"/>
+                  </svg>
                   Só limpeza
                 </label>
               </div>
+
+              <!-- ── NOVO: Serviço Especial (ocupa linha inteira) ── -->
+              <div class="radio-option servico-especial" style="grid-column: 1 / -1;">
+                <input type="radio" id="tipoServicoEspecial" name="tipoCliente" value="ServicoEspecial">
+                <label for="tipoServicoEspecial" class="radio-label">
+                  <svg viewBox="0 0 24 24">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                  </svg>
+                  Serviço Especial
+                </label>
+              </div>
+
             </div>
           </div>
         </div>
@@ -645,12 +699,11 @@
             <div>
               <div class="alert-title">Oferta cruzada com desconto</div>
               <div class="alert-text">
-                Selecione o serviço principal da proposta e o cliente receberá automaticamente uma oferta do serviço complementar com desconto.
+                Selecione o serviço principal da proposta. O cliente receberá automaticamente uma oferta do serviço complementar com desconto.
               </div>
             </div>
           </div>
 
-          <!-- Radio group em coluna única -->
           <div class="radio-group servicos-especiais-group">
 
             <!-- Nenhum (padrão) -->
@@ -662,7 +715,7 @@
               </label>
             </div>
 
-            <!-- Limpeza → oferta Garantia Estendida c/ desconto -->
+            <!-- Limpeza → oferta Garantia c/ desconto -->
             <div class="radio-option">
               <input type="radio" id="servicoEspecialLimpezaGarantia" name="servicoEspecial" value="limpeza_oferecendo_garantia">
               <label for="servicoEspecialLimpezaGarantia" class="radio-label">
@@ -675,7 +728,7 @@
               </label>
             </div>
 
-            <!-- Garantia Estendida → oferta Limpeza c/ desconto -->
+            <!-- Garantia → oferta Limpeza c/ desconto -->
             <div class="radio-option">
               <input type="radio" id="servicoEspecialGarantiaLimpeza" name="servicoEspecial" value="garantia_oferecendo_limpeza">
               <label for="servicoEspecialGarantiaLimpeza" class="radio-label">
@@ -688,7 +741,6 @@
 
           </div>
         </div>
-        <!-- ===================================================== -->
 
         <!-- ALERTA MODO AVULSO -->
         <div id="alertaAvulso" class="alert hidden">
@@ -718,7 +770,11 @@
           </div>
 
           <div class="form-group">
-            <label for="potencia">Potência do sistema (kWp) <span class="required">*</span></label>
+            <label for="potencia">
+              Potência do sistema (kWp)
+              <span class="required" id="potenciaRequired">*</span>
+              <span class="optional hidden" id="potenciaOptional">(Opcional)</span>
+            </label>
             <input type="number" id="potencia" name="potencia" step="0.001" min="0" required placeholder="5,940">
           </div>
 
@@ -754,7 +810,10 @@
 
         <!-- SERVIÇOS AVULSOS -->
         <div class="section">
-          <h2 class="section-title">Serviços avulsos <span class="optional" style="text-transform:none;letter-spacing:0;font-size:11px;">(opcional)</span></h2>
+          <h2 class="section-title">
+            Serviços avulsos
+            <span class="optional" style="text-transform:none;letter-spacing:0;font-size:11px;">(opcional)</span>
+          </h2>
 
           <div id="servicosList"></div>
 
@@ -795,7 +854,6 @@
 
     function selecionarServidor(servidor) {
       servidorAtivo = servidor;
-
       const btnGauss  = document.getElementById('btnServerGauss');
       const btnLocal  = document.getElementById('btnServerLocal');
       const serverDot = document.getElementById('serverDot');
@@ -824,11 +882,12 @@
     // ==========================================
     let servicoCounter = 0;
 
-    const form         = document.getElementById('propostaForm');
-    const radioComum   = document.getElementById('tipoComum');
-    const radioPremium = document.getElementById('tipoPremium');
-    const radioAvulso  = document.getElementById('tipoAvulso');
-    const radioLimpeza = document.getElementById('tipoLimpeza');
+    const form                 = document.getElementById('propostaForm');
+    const radioComum           = document.getElementById('tipoComum');
+    const radioPremium         = document.getElementById('tipoPremium');
+    const radioAvulso          = document.getElementById('tipoAvulso');
+    const radioLimpeza         = document.getElementById('tipoLimpeza');
+    const radioServicoEspecial = document.getElementById('tipoServicoEspecial'); // ← NOVO
 
     const infoGeraisSection          = document.getElementById('infoGeraisSection');
     const premiumSection             = document.getElementById('premiumSection');
@@ -842,72 +901,89 @@
     const camposPlacas     = document.getElementById('placas');
     const projetosInclusos = document.getElementById('projetosInclusos');
 
+    // Label de potência (alterna * / opcional)
+    const potenciaRequired = document.getElementById('potenciaRequired');
+    const potenciaOptional = document.getElementById('potenciaOptional');
+
     // ==========================================
-    // LÓGICA CONDICIONAL - TIPO DE PROPOSTA
+    // HELPERS
+    // ==========================================
+    function mostrarSecaoEspecial() {
+      servicosEspecificosSection.classList.remove('hidden');
+      servicosEspecificosSection.classList.add('fade-in');
+    }
+
+    function ocultarSecaoEspecial() {
+      servicosEspecificosSection.classList.add('hidden');
+      // Reseta para "nenhum" ao esconder
+      document.getElementById('servicoEspecialNenhum').checked = true;
+    }
+
+    function setPotenciaObrigatoria(obrigatoria) {
+      camposPotencia.required = obrigatoria;
+      potenciaRequired.classList.toggle('hidden', !obrigatoria);
+      potenciaOptional.classList.toggle('hidden', obrigatoria);
+    }
+
+    // ==========================================
+    // LÓGICA CONDICIONAL — TIPO DE PROPOSTA
     // ==========================================
     function atualizarFormulario() {
       const tipo = document.querySelector('input[name="tipoCliente"]:checked').value;
 
-      // Reset servico especial para "nenhum" ao trocar de tipo
-      const radioNenhum = document.getElementById('servicoEspecialNenhum');
-      if (radioNenhum) radioNenhum.checked = true;
+      // Defaults (reset visibilidade)
+      infoGeraisSection.classList.remove('hidden');
+      premiumSection.classList.add('hidden');
+      alertaAvulso.classList.add('hidden');
 
       if (tipo === 'Comum') {
-        infoGeraisSection.classList.remove('hidden');
-        premiumSection.classList.add('hidden');
-        servicosEspecificosSection.classList.remove('hidden');
-        servicosEspecificosSection.classList.add('fade-in');
-        alertaAvulso.classList.add('hidden');
-
-        camposCidade.required   = true;
-        camposPotencia.required = true;
-        camposPlacas.required   = true;
+        mostrarSecaoEspecial();
+        camposCidade.required     = true;
+        setPotenciaObrigatoria(true);
+        camposPlacas.required     = true;
         projetosInclusos.required = false;
 
       } else if (tipo === 'Premium') {
-        infoGeraisSection.classList.remove('hidden');
+        mostrarSecaoEspecial();
         premiumSection.classList.remove('hidden');
         premiumSection.classList.add('fade-in');
-        servicosEspecificosSection.classList.remove('hidden');
-        servicosEspecificosSection.classList.add('fade-in');
-        alertaAvulso.classList.add('hidden');
-
-        camposCidade.required   = true;
-        camposPotencia.required = true;
-        camposPlacas.required   = true;
+        camposCidade.required     = true;
+        setPotenciaObrigatoria(true);
+        camposPlacas.required     = true;
         projetosInclusos.required = true;
 
       } else if (tipo === 'Avulso') {
-        infoGeraisSection.classList.remove('hidden');
-        premiumSection.classList.add('hidden');
-        servicosEspecificosSection.classList.add('hidden');
+        ocultarSecaoEspecial();
         alertaAvulso.classList.remove('hidden');
         alertaAvulso.classList.add('fade-in');
-
-        camposCidade.required   = false;
-        camposPotencia.required = false;
-        camposPlacas.required   = false;
+        camposCidade.required     = false;
+        setPotenciaObrigatoria(false);
+        camposPlacas.required     = false;
         projetosInclusos.required = false;
-
         if (servicoCounter === 0) adicionarServico();
 
       } else if (tipo === 'Limpeza') {
-        infoGeraisSection.classList.remove('hidden');
-        premiumSection.classList.add('hidden');
-        servicosEspecificosSection.classList.add('hidden');
-        alertaAvulso.classList.add('hidden');
+        ocultarSecaoEspecial();
+        camposCidade.required     = true;
+        setPotenciaObrigatoria(false);
+        camposPlacas.required     = true;
+        projetosInclusos.required = false;
 
-        camposCidade.required   = true;
-        camposPotencia.required = false;
-        camposPlacas.required   = true;
+      } else if (tipo === 'ServicoEspecial') {
+        // Mostra a seção especial — a escolha do serviço é obrigatória
+        mostrarSecaoEspecial();
+        // Reseta para forçar escolha consciente
+        document.getElementById('servicoEspecialNenhum').checked = true;
+        camposCidade.required     = true;
+        setPotenciaObrigatoria(false);
+        camposPlacas.required     = true;
         projetosInclusos.required = false;
       }
     }
 
-    radioComum.addEventListener('change',   atualizarFormulario);
-    radioPremium.addEventListener('change', atualizarFormulario);
-    radioAvulso.addEventListener('change',  atualizarFormulario);
-    radioLimpeza.addEventListener('change', atualizarFormulario);
+    // Event listeners — todos os radios de tipo
+    [radioComum, radioPremium, radioAvulso, radioLimpeza, radioServicoEspecial]
+      .forEach(r => r.addEventListener('change', atualizarFormulario));
 
     // ==========================================
     // SERVIÇOS AVULSOS
@@ -927,16 +1003,19 @@
         <div class="servico-fields">
           <div class="form-group" style="margin-bottom:0;">
             <label>Nome do serviço <span class="required">*</span></label>
-            <input type="text" name="servico_${servicoCounter}_nome" placeholder="Ex: Manutenção Preventiva Anual" required>
+            <input type="text" name="servico_${servicoCounter}_nome"
+              placeholder="Ex: Manutenção Preventiva Anual" required>
           </div>
           <div class="servico-row">
             <div class="form-group" style="margin-bottom:0;">
               <label>Descrição <span class="optional">(Opcional)</span></label>
-              <input type="text" name="servico_${servicoCounter}_descricao" placeholder="Ex: Verificação completa; Limpeza de módulos; Teste de tensão">
+              <input type="text" name="servico_${servicoCounter}_descricao"
+                placeholder="Ex: Verificação completa; Limpeza de módulos; Teste de tensão">
             </div>
             <div class="form-group" style="margin-bottom:0;">
               <label>Valor (R$) <span class="required">*</span></label>
-              <input type="number" name="servico_${servicoCounter}_valor" step="0.01" min="0" placeholder="150.00" required>
+              <input type="number" name="servico_${servicoCounter}_valor"
+                step="0.01" min="0" placeholder="150.00" required>
             </div>
           </div>
         </div>
@@ -960,11 +1039,13 @@
 
       const tipo = document.querySelector('input[name="tipoCliente"]:checked').value;
 
+      // Validação: Avulso precisa de pelo menos 1 serviço
       if (tipo === 'Avulso' && servicosList.children.length === 0) {
         alert('Adicione pelo menos 1 serviço avulso.');
         return;
       }
 
+      // Validação: Limpeza
       if (tipo === 'Limpeza') {
         if (!camposCidade.value.trim()) {
           alert('Cidade é obrigatória para proposta de limpeza.');
@@ -976,10 +1057,19 @@
         }
       }
 
+      // Validação: Serviço Especial precisa de uma opção selecionada (não "nenhum")
+      if (tipo === 'ServicoEspecial') {
+        const servicoEspecialVal = document.querySelector('input[name="servicoEspecial"]:checked')?.value;
+        if (!servicoEspecialVal || servicoEspecialVal === 'nenhum') {
+          alert('Selecione um serviço especial antes de gerar a proposta.');
+          return;
+        }
+      }
+
       const formData = new FormData(form);
       const data = {};
 
-      // Campos normais (inclui automaticamente "servicoEspecial" via FormData)
+      // Campos normais (inclui tipoCliente e servicoEspecial via FormData)
       formData.forEach((value, key) => {
         if (!key.startsWith('servico_')) {
           data[key] = value;
