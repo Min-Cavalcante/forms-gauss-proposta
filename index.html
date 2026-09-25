@@ -14,7 +14,6 @@
       --gauss-green-300: #8FD79A;
       --gauss-green-700: #2A8D38;
       --gauss-green-900: #1B5D24;
-
       --white:   #FFFFFF;
       --ink-50:  #F8FAF8;
       --ink-100: #F1F3F1;
@@ -27,37 +26,28 @@
       --ink-800: #1A241E;
       --ink-900: #0E1812;
       --ink-1000: #07100A;
-
       --signal-warn: #D9534F;
-
       --fg-1: var(--ink-900);
       --fg-2: var(--ink-700);
       --fg-3: var(--ink-500);
-
       --bg-paper:   var(--ink-50);
       --bg-surface: var(--white);
       --bg-sunken:  var(--ink-100);
-
       --border-hairline: var(--ink-200);
       --border-strong:   var(--ink-900);
-
       --shadow-sm: 0 1px 2px rgba(7,16,10,0.06), 0 1px 1px rgba(7,16,10,0.04);
       --shadow-md: 0 6px 16px -4px rgba(7,16,10,0.10), 0 2px 4px rgba(7,16,10,0.04);
       --shadow-glow-green: 0 0 0 4px rgba(57,181,74,0.18);
-
       --radius-sm: 4px;
       --radius-md: 8px;
       --radius-lg: 14px;
       --radius-pill: 999px;
-
       --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px;
       --space-6: 32px; --space-7: 48px;
-
       --font-display: 'Sora', system-ui, sans-serif;
       --font-body:    'Sora', system-ui, sans-serif;
       --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
       --font-wordmark:'Bebas Neue', 'Sora', system-ui, sans-serif;
-
       --tracking-label: 0.14em;
     }
 
@@ -89,16 +79,13 @@
       padding: var(--space-6) var(--space-6) var(--space-5);
       text-align: center;
     }
-
     .header .mark {
       display: inline-flex;
       align-items: center;
       gap: 10px;
       margin-bottom: var(--space-4);
     }
-
     .header .mark svg { width: 30px; height: 19px; }
-
     .header .gauss-wordmark {
       font-family: var(--font-wordmark);
       font-size: 26px;
@@ -106,7 +93,6 @@
       text-transform: uppercase;
       line-height: 1;
     }
-
     .header .tagline {
       font-family: var(--font-display);
       font-size: 10px;
@@ -116,7 +102,6 @@
       color: var(--gauss-green-300);
       margin-bottom: var(--space-4);
     }
-
     .header h1 {
       font-family: var(--font-display);
       font-size: 24px;
@@ -124,7 +109,6 @@
       letter-spacing: -0.01em;
       margin-bottom: 6px;
     }
-
     .header p { font-size: 14px; color: rgba(255,255,255,0.62); }
 
     /* -------- Server selector -------- */
@@ -138,7 +122,6 @@
       border-bottom: 1px solid var(--ink-800);
       flex-wrap: wrap;
     }
-
     .server-selector-label {
       display: flex;
       align-items: center;
@@ -151,9 +134,7 @@
       text-transform: uppercase;
       white-space: nowrap;
     }
-
     .server-selector-label svg { width: 14px; height: 14px; stroke: var(--ink-400); }
-
     .server-toggle {
       display: flex;
       background: var(--ink-1000);
@@ -161,7 +142,6 @@
       padding: 3px;
       gap: 3px;
     }
-
     .server-btn {
       padding: 7px 16px;
       border: 1px solid transparent;
@@ -177,19 +157,15 @@
       align-items: center;
       gap: 6px;
     }
-
     .server-btn:hover { color: var(--ink-200); }
     .server-btn svg { width: 13px; height: 13px; }
-
     .server-btn.active-gauss { background: var(--gauss-green); color: var(--ink-1000); }
-
     .server-btn.active-local {
       background: transparent;
       color: var(--ink-100);
       border-color: var(--ink-500);
       border-style: dashed;
     }
-
     .server-indicator {
       display: flex;
       align-items: center;
@@ -205,17 +181,14 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-
     .server-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
       flex-shrink: 0;
       animation: pulse-dot 2s infinite;
     }
-
     .dot-gauss { background: var(--gauss-green); }
     .dot-local { background: var(--ink-400); }
-
     @keyframes pulse-dot {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.35; }
@@ -224,7 +197,6 @@
     /* -------- Form layout -------- */
     .form-content { padding: var(--space-6); }
     .section { margin-bottom: var(--space-6); }
-
     .section-title {
       font-family: var(--font-display);
       font-size: 11px;
@@ -239,7 +211,6 @@
       align-items: center;
       gap: 8px;
     }
-
     .section-title::before {
       content: "";
       width: 6px; height: 6px;
@@ -247,11 +218,8 @@
       background: var(--gauss-green);
       flex-shrink: 0;
     }
-
     .section-title.premium-title::before { background: var(--ink-700); }
-
     .form-group { margin-bottom: var(--space-5); }
-
     .form-group label {
       display: block;
       font-family: var(--font-display);
@@ -261,9 +229,7 @@
       margin-bottom: 8px;
       color: var(--fg-2);
     }
-
     .required { color: var(--signal-warn); }
-
     .optional {
       color: var(--fg-3);
       font-weight: 400;
@@ -271,7 +237,6 @@
       text-transform: none;
       letter-spacing: 0;
     }
-
     input[type="text"],
     input[type="number"],
     textarea,
@@ -286,9 +251,7 @@
       background: var(--white);
       transition: all 0.15s ease;
     }
-
     input::placeholder, textarea::placeholder { color: var(--fg-3); }
-
     input:focus, textarea:focus, select:focus {
       outline: none;
       border-color: var(--gauss-green);
@@ -301,23 +264,13 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
     }
-
-    .radio-group.servicos-especiais-group {
-      grid-template-columns: 1fr;
-    }
-
+    .radio-group.servicos-especiais-group { grid-template-columns: 1fr; }
     .radio-group.servicos-especiais-group .radio-label {
       justify-content: flex-start;
       text-align: left;
     }
-
     .radio-option { position: relative; }
-
-    .radio-option input[type="radio"] {
-      position: absolute;
-      opacity: 0;
-    }
-
+    .radio-option input[type="radio"] { position: absolute; opacity: 0; }
     .radio-label {
       display: flex;
       align-items: center;
@@ -334,7 +287,6 @@
       color: var(--fg-2);
       transition: all 0.15s ease;
     }
-
     .radio-label svg {
       width: 16px; height: 16px;
       stroke: var(--ink-500);
@@ -345,45 +297,36 @@
       flex-shrink: 0;
       transition: stroke 0.15s ease;
     }
-
     .radio-label:hover { border-color: var(--ink-600); }
-
     .radio-option input[type="radio"]:checked + .radio-label {
       border-color: var(--gauss-green);
       background: var(--gauss-green-100);
       color: var(--gauss-green-900);
     }
-
     .radio-option input[type="radio"]:checked + .radio-label svg {
       stroke: var(--gauss-green-900);
     }
-
     .radio-option.premium .radio-label { border-style: dashed; }
     .radio-option.premium input[type="radio"]:checked + .radio-label { border-style: solid; }
-
     .radio-option.servico-especial .radio-label {
       border-style: dashed;
       border-color: var(--gauss-green-300);
       position: relative;
     }
-
     .radio-option.servico-especial input[type="radio"]:checked + .radio-label {
       border-style: solid;
       border-color: var(--gauss-green);
       background: var(--gauss-green-100);
       color: var(--gauss-green-900);
     }
-
     .radio-option.servico-especial .radio-label::after {
       content: "NOVO";
       position: absolute;
-      top: -1px;
-      right: -1px;
+      top: -1px; right: -1px;
       background: var(--gauss-green);
       color: var(--ink-1000);
       font-family: var(--font-mono);
-      font-size: 9px;
-      font-weight: 600;
+      font-size: 9px; font-weight: 600;
       letter-spacing: 0.08em;
       padding: 2px 6px;
       border-radius: 0 var(--radius-sm) 0 var(--radius-sm);
@@ -392,7 +335,6 @@
     /* -------- Utilities -------- */
     .hidden { display: none !important; }
     .fade-in { animation: fadeIn 0.25s ease-in; }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-8px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -408,18 +350,9 @@
       border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
       margin-bottom: var(--space-5);
     }
-
     .alert .alert-icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; }
     .alert .alert-icon svg { width: 100%; height: 100%; stroke: var(--gauss-green-900); fill: none; stroke-width: 2; }
-
-    .alert-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 13px;
-      margin-bottom: 3px;
-      color: var(--ink-900);
-    }
-
+    .alert-title { font-family: var(--font-display); font-weight: 700; font-size: 13px; margin-bottom: 3px; color: var(--ink-900); }
     .alert-text { font-size: 13px; line-height: 1.5; color: var(--fg-2); }
 
     /* -------- Serviços avulsos -------- */
@@ -431,23 +364,18 @@
       margin-bottom: var(--space-3);
       position: relative;
     }
-
     .servico-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: var(--space-3);
     }
-
     .servico-numero {
       font-family: var(--font-mono);
-      font-weight: 600;
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      font-weight: 600; font-size: 12px;
+      letter-spacing: 0.04em; text-transform: uppercase;
       color: var(--gauss-green-700);
     }
-
     .btn-remover {
       background: transparent;
       color: var(--signal-warn);
@@ -455,22 +383,16 @@
       padding: 5px 12px;
       border-radius: var(--radius-sm);
       cursor: pointer;
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 600;
+      font-family: var(--font-display); font-size: 12px; font-weight: 600;
       transition: all 0.15s ease;
     }
-
     .btn-remover:hover { background: var(--signal-warn); color: var(--white); }
-
     .servico-fields { display: flex; flex-direction: column; gap: var(--space-3); }
-
     .servico-row {
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: var(--space-3);
     }
-
     .btn-add-servico {
       display: flex;
       align-items: center;
@@ -482,15 +404,11 @@
       padding: 13px 24px;
       border-radius: var(--radius-sm);
       cursor: pointer;
-      font-family: var(--font-display);
-      font-size: 14px;
-      font-weight: 600;
+      font-family: var(--font-display); font-size: 14px; font-weight: 600;
       width: 100%;
       transition: all 0.15s ease;
     }
-
     .btn-add-servico svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; }
-
     .btn-add-servico:hover {
       border-color: var(--gauss-green);
       border-style: solid;
@@ -506,20 +424,14 @@
       border-radius: var(--radius-sm);
       border-left: 3px solid var(--gauss-green);
     }
-
     .limpeza-preview-title {
       font-family: var(--font-display);
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em;
       color: var(--gauss-green-900);
       margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      display: flex; align-items: center; gap: 6px;
     }
-
     .limpeza-preview-title::before {
       content: '';
       display: inline-block;
@@ -528,13 +440,11 @@
       background: var(--gauss-green);
       animation: pulse-dot 1.5s infinite;
     }
-
     .limpeza-preview-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
-
     .limpeza-preview-item {
       background: white;
       border: 1px solid var(--gauss-green-300);
@@ -542,28 +452,74 @@
       padding: 8px 10px;
       text-align: center;
     }
-
     .limpeza-preview-label {
-      font-size: 9px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--fg-3);
-      margin-bottom: 4px;
+      font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--fg-3); margin-bottom: 4px;
     }
-
     .limpeza-preview-value {
       font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 12px; font-weight: 600;
+      color: var(--gauss-green-900); line-height: 1.3;
+    }
+    .limpeza-preview-total {
+      font-size: 9px; color: var(--fg-3); margin-top: 2px;
+    }
+    /* Nota de deslocamento */
+    .limpeza-preview-nota {
+      margin-top: 10px;
+      padding: 7px 10px;
+      background: white;
+      border: 1px dashed var(--gauss-green-700);
+      border-radius: var(--radius-sm);
+      font-size: 10px;
       color: var(--gauss-green-900);
-      line-height: 1.3;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .limpeza-preview-total {
-      font-size: 9px;
-      color: var(--fg-3);
-      margin-top: 2px;
+    /* -------- Checkbox wrapper (Deslocamento) -------- */
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      padding: 11px 14px;
+      border: 1px solid var(--ink-300);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .checkbox-wrapper:hover {
+      border-color: var(--gauss-green);
+      background: var(--gauss-green-100);
+    }
+    .checkbox-wrapper input[type="checkbox"] {
+      width: 17px; height: 17px;
+      accent-color: var(--gauss-green);
+      cursor: pointer; flex-shrink: 0;
+      /* reset global number/text input styles */
+      padding: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    .checkbox-wrapper input[type="checkbox"]:focus {
+      outline: 2px solid var(--gauss-green);
+      outline-offset: 2px;
+      box-shadow: none !important;
+    }
+    .checkbox-text {
+      font-family: var(--font-display);
+      font-weight: 600; font-size: 14px;
+      color: var(--fg-2); line-height: 1.3;
+    }
+    .checkbox-text small {
+      display: block;
+      font-size: 11px; font-weight: 400;
+      color: var(--fg-3); margin-top: 1px;
     }
 
     /* -------- Submit -------- */
@@ -578,17 +534,13 @@
       padding: 16px 28px;
       border-radius: var(--radius-sm);
       cursor: pointer;
-      font-family: var(--font-display);
-      font-size: 15px;
-      font-weight: 700;
+      font-family: var(--font-display); font-size: 15px; font-weight: 700;
       letter-spacing: 0.01em;
       width: 100%;
       transition: all 0.15s ease;
       box-shadow: var(--shadow-sm);
     }
-
     .btn-submit svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; transition: transform 0.15s ease; }
-
     .btn-submit:hover { background: var(--gauss-green-700); color: var(--white); box-shadow: var(--shadow-md); }
     .btn-submit:hover svg { transform: translateX(2px); }
     .btn-submit:active { transform: translateY(1px); }
@@ -602,7 +554,6 @@
       text-align: center;
       margin-top: var(--space-5);
     }
-
     .success-message .success-icon {
       width: 36px; height: 36px;
       margin: 0 auto 12px;
@@ -610,7 +561,6 @@
       background: var(--gauss-green);
       display: flex; align-items: center; justify-content: center;
     }
-
     .success-message .success-icon svg { width: 18px; height: 18px; stroke: var(--ink-1000); fill: none; stroke-width: 2.5; }
     .success-message h3 { font-family: var(--font-display); color: var(--gauss-green-900); font-size: 16px; margin-bottom: 4px; }
     .success-message p  { font-size: 13px; color: var(--fg-2); }
@@ -619,7 +569,7 @@
 <body>
   <div class="container">
 
-    <!-- ===== HEADER ===== -->
+    <!-- HEADER -->
     <div class="header">
       <div class="mark">
         <svg viewBox="-3 -3 156 98" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -637,7 +587,7 @@
       <p>Sistema de geração de propostas — Gauss Energia</p>
     </div>
 
-    <!-- ===== SERVER SELECTOR ===== -->
+    <!-- SERVER SELECTOR -->
     <div class="server-selector-banner">
       <div class="server-selector-label">
         <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -647,7 +597,6 @@
         </svg>
         Servidor
       </div>
-
       <div class="server-toggle">
         <button type="button" class="server-btn active-gauss" id="btnServerGauss" onclick="selecionarServidor('gauss')">
           <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -662,36 +611,27 @@
           Local
         </button>
       </div>
-
       <div class="server-indicator" id="serverIndicator">
         <span class="server-dot dot-gauss" id="serverDot"></span>
         <span id="serverUrl">n8n.gaussenergia.com.br/webhook/...</span>
       </div>
     </div>
 
-    <!-- ===== FORM ===== -->
+    <!-- FORM -->
     <div class="form-content">
       <form id="propostaForm">
 
         <!-- TIPO DE PROPOSTA -->
         <div class="section">
           <h2 class="section-title">Tipo de proposta</h2>
-
           <div class="form-group">
             <label>Selecione o tipo de proposta <span class="required">*</span></label>
-
             <div class="radio-group">
 
               <div class="radio-option">
                 <input type="radio" id="tipoComum" name="tipoCliente" value="Comum" checked>
                 <label for="tipoComum" class="radio-label">
-                  <svg viewBox="0 0 24 24">
-                    <rect x="4" y="5" width="16" height="14"/>
-                    <line x1="9" y1="5" x2="9" y2="19"/>
-                    <line x1="14" y1="5" x2="14" y2="19"/>
-                    <line x1="4" y1="9" x2="20" y2="9"/>
-                    <line x1="4" y1="14" x2="20" y2="14"/>
-                  </svg>
+                  <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14"/><line x1="9" y1="5" x2="9" y2="19"/><line x1="14" y1="5" x2="14" y2="19"/><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="14" x2="20" y2="14"/></svg>
                   Comum
                 </label>
               </div>
@@ -699,9 +639,7 @@
               <div class="radio-option premium">
                 <input type="radio" id="tipoPremium" name="tipoCliente" value="Premium">
                 <label for="tipoPremium" class="radio-label">
-                  <svg viewBox="0 0 24 24">
-                    <polygon points="12 3 14.5 9 21 9.5 16 13.8 17.5 20 12 16.6 6.5 20 8 13.8 3 9.5 9.5 9"/>
-                  </svg>
+                  <svg viewBox="0 0 24 24"><polygon points="12 3 14.5 9 21 9.5 16 13.8 17.5 20 12 16.6 6.5 20 8 13.8 3 9.5 9.5 9"/></svg>
                   Premium
                 </label>
               </div>
@@ -709,9 +647,7 @@
               <div class="radio-option">
                 <input type="radio" id="tipoAvulso" name="tipoCliente" value="Avulso">
                 <label for="tipoAvulso" class="radio-label">
-                  <svg viewBox="0 0 24 24">
-                    <path d="M14.7 6.3a3 3 0 0 0-4.24 4.24L4 17v3h3l6.46-6.46a3 3 0 0 0 4.24-4.24l-2.3 2.3-2-2 2.3-2.3Z"/>
-                  </svg>
+                  <svg viewBox="0 0 24 24"><path d="M14.7 6.3a3 3 0 0 0-4.24 4.24L4 17v3h3l6.46-6.46a3 3 0 0 0 4.24-4.24l-2.3 2.3-2-2 2.3-2.3Z"/></svg>
                   Só avulso
                 </label>
               </div>
@@ -719,11 +655,7 @@
               <div class="radio-option">
                 <input type="radio" id="tipoLimpeza" name="tipoCliente" value="Limpeza">
                 <label for="tipoLimpeza" class="radio-label">
-                  <svg viewBox="0 0 24 24">
-                    <line x1="4" y1="21" x2="20" y2="21"/>
-                    <path d="M9 21V9l6-4v16"/>
-                    <line x1="9" y1="13" x2="15" y2="13"/>
-                  </svg>
+                  <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="20" y2="21"/><path d="M9 21V9l6-4v16"/><line x1="9" y1="13" x2="15" y2="13"/></svg>
                   Só limpeza
                 </label>
               </div>
@@ -731,9 +663,7 @@
               <div class="radio-option servico-especial" style="grid-column: 1 / -1;">
                 <input type="radio" id="tipoServicoEspecial" name="tipoCliente" value="ServicoEspecial">
                 <label for="tipoServicoEspecial" class="radio-label">
-                  <svg viewBox="0 0 24 24">
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                  </svg>
+                  <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                   Serviço Especial
                 </label>
               </div>
@@ -745,7 +675,6 @@
         <!-- SERVIÇOS ESPECIAIS -->
         <div class="section hidden" id="servicosEspecificosSection">
           <h2 class="section-title">Serviços especiais</h2>
-
           <div class="alert">
             <div class="alert-icon">
               <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -756,14 +685,10 @@
             </div>
             <div>
               <div class="alert-title">Oferta cruzada com desconto</div>
-              <div class="alert-text">
-                Selecione o serviço principal da proposta. O cliente receberá automaticamente uma oferta do serviço complementar com desconto.
-              </div>
+              <div class="alert-text">Selecione o serviço principal da proposta. O cliente receberá automaticamente uma oferta do serviço complementar com desconto.</div>
             </div>
           </div>
-
           <div class="radio-group servicos-especiais-group">
-
             <div class="radio-option">
               <input type="radio" id="servicoEspecialNenhum" name="servicoEspecial" value="nenhum" checked>
               <label for="servicoEspecialNenhum" class="radio-label">
@@ -771,29 +696,20 @@
                 Nenhum serviço especial
               </label>
             </div>
-
             <div class="radio-option">
               <input type="radio" id="servicoEspecialLimpezaGarantia" name="servicoEspecial" value="limpeza_oferecendo_garantia">
               <label for="servicoEspecialLimpezaGarantia" class="radio-label">
-                <svg viewBox="0 0 24 24">
-                  <line x1="4" y1="21" x2="20" y2="21"/>
-                  <path d="M9 21V9l6-4v16"/>
-                  <line x1="9" y1="13" x2="15" y2="13"/>
-                </svg>
+                <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="20" y2="21"/><path d="M9 21V9l6-4v16"/><line x1="9" y1="13" x2="15" y2="13"/></svg>
                 Limpeza, oferecendo Garantia Estendida com desconto
               </label>
             </div>
-
             <div class="radio-option">
               <input type="radio" id="servicoEspecialGarantiaLimpeza" name="servicoEspecial" value="garantia_oferecendo_limpeza">
               <label for="servicoEspecialGarantiaLimpeza" class="radio-label">
-                <svg viewBox="0 0 24 24">
-                  <path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3Z"/>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3Z"/></svg>
                 Garantia Estendida, oferecendo limpeza com desconto
               </label>
             </div>
-
           </div>
         </div>
 
@@ -838,13 +754,11 @@
             <input type="number" id="placas" name="placas" min="0" required placeholder="11">
           </div>
 
-          <!-- ══════════════════════════════════════════════
-               NOVO: Valor por placa — visível só em Limpeza
-               ══════════════════════════════════════════════ -->
+          <!-- ══ PRECIFICAÇÃO MANUAL DE LIMPEZA ══ -->
           <div class="form-group hidden" id="valorPorPlacaGroup">
             <label for="valorPorPlacaManual">
-              Valor por placa (R$)
-              <span class="optional">(Opcional — calculado automaticamente se vazio)</span>
+              Valor por placa (R$) — taxa manual
+              <span class="optional">(Opcional — calculado automaticamente por faixa se vazio)</span>
             </label>
             <input
               type="number"
@@ -852,10 +766,19 @@
               name="valorPorPlacaManual"
               step="0.01"
               min="0"
-              placeholder="Ex: 12.00"
+              placeholder="Ex: 7.50"
             >
 
-            <!-- Prévia em tempo real -->
+            <!-- ── CHECKBOX DESLOCAMENTO ── -->
+            <label class="checkbox-wrapper" for="considerarDeslocamento">
+              <input type="checkbox" id="considerarDeslocamento" name="considerarDeslocamento">
+              <span class="checkbox-text">
+                Considerar deslocamento no cálculo
+                <small>Se marcado: total = placas × taxa + dist × 2</small>
+              </span>
+            </label>
+
+            <!-- ── PRÉVIA EM TEMPO REAL ── -->
             <div id="limpezaPreview" class="limpeza-preview hidden">
               <div class="limpeza-preview-title">Prévia dos planos</div>
               <div class="limpeza-preview-grid">
@@ -875,16 +798,19 @@
                   <div class="limpeza-preview-total" id="preview5xTotal"></div>
                 </div>
               </div>
+              <!-- Nota de deslocamento (visível quando checkbox marcado) -->
+              <div id="notaDeslocamento" class="limpeza-preview-nota hidden">
+                🚗 Deslocamento calculado pela cidade e somado ao total final
+              </div>
             </div>
           </div>
-          <!-- ══ FIM valor por placa ══ -->
+          <!-- ══ FIM PRECIFICAÇÃO MANUAL ══ -->
 
         </div>
 
         <!-- SEÇÃO PREMIUM -->
         <div class="section hidden" id="premiumSection">
           <h2 class="section-title premium-title">Informações premium</h2>
-
           <div class="form-group">
             <label>Incluir serviço de limpeza? <span class="required">*</span></label>
             <div class="radio-group">
@@ -898,7 +824,6 @@
               </div>
             </div>
           </div>
-
           <div class="form-group">
             <label for="projetosInclusos">Projetos inclusos <span class="required">*</span></label>
             <textarea id="projetosInclusos" name="projetosInclusos" rows="3" placeholder="Ex: Projeto Elétrico, Projeto Estrutural, ART"></textarea>
@@ -911,9 +836,7 @@
             Serviços avulsos
             <span class="optional" style="text-transform:none;letter-spacing:0;font-size:11px;">(opcional)</span>
           </h2>
-
           <div id="servicosList"></div>
-
           <button type="button" id="btnAddServico" class="btn-add-servico">
             <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Adicionar serviço avulso
@@ -946,7 +869,6 @@
       gauss: 'https://n8n.gaussenergia.com.br/webhook/gauss-proposta',
       local: 'https://dexterity-copper-resistant.ngrok-free.dev/webhook/gauss-proposta'
     };
-
     let servidorAtivo = 'gauss';
 
     function selecionarServidor(servidor) {
@@ -955,10 +877,8 @@
       const btnLocal  = document.getElementById('btnServerLocal');
       const serverDot = document.getElementById('serverDot');
       const serverUrl = document.getElementById('serverUrl');
-
       btnGauss.className = 'server-btn';
       btnLocal.className = 'server-btn';
-
       if (servidor === 'gauss') {
         btnGauss.classList.add('active-gauss');
         serverDot.className = 'server-dot dot-gauss';
@@ -969,10 +889,7 @@
         serverUrl.textContent = 'ngrok-free.dev/webhook/...';
       }
     }
-
-    function getWebhookUrl() {
-      return SERVIDORES[servidorAtivo];
-    }
+    function getWebhookUrl() { return SERVIDORES[servidorAtivo]; }
 
     // ==========================================
     // VARIÁVEIS GLOBAIS
@@ -997,15 +914,15 @@
     const camposPotencia   = document.getElementById('potencia');
     const camposPlacas     = document.getElementById('placas');
     const projetosInclusos = document.getElementById('projetosInclusos');
-
-    // Novo: campo de valor por placa (limpeza)
-    const valorPorPlacaGroup  = document.getElementById('valorPorPlacaGroup');
-    const inputValorPorPlaca  = document.getElementById('valorPorPlacaManual');
-    const limpezaPreviewEl    = document.getElementById('limpezaPreview');
-
-    // Label de potência (alterna * / opcional)
     const potenciaRequired = document.getElementById('potenciaRequired');
     const potenciaOptional = document.getElementById('potenciaOptional');
+
+    // Campos de limpeza manual
+    const valorPorPlacaGroup   = document.getElementById('valorPorPlacaGroup');
+    const inputValorPorPlaca   = document.getElementById('valorPorPlacaManual');
+    const checkDeslocamento    = document.getElementById('considerarDeslocamento');
+    const limpezaPreviewEl     = document.getElementById('limpezaPreview');
+    const notaDeslocamentoEl   = document.getElementById('notaDeslocamento');
 
     // ==========================================
     // HELPERS
@@ -1014,12 +931,10 @@
       servicosEspecificosSection.classList.remove('hidden');
       servicosEspecificosSection.classList.add('fade-in');
     }
-
     function ocultarSecaoEspecial() {
       servicosEspecificosSection.classList.add('hidden');
       document.getElementById('servicoEspecialNenhum').checked = true;
     }
-
     function setPotenciaObrigatoria(obrigatoria) {
       camposPotencia.required = obrigatoria;
       potenciaRequired.classList.toggle('hidden', !obrigatoria);
@@ -1032,14 +947,16 @@
     function atualizarFormulario() {
       const tipo = document.querySelector('input[name="tipoCliente"]:checked').value;
 
-      // Defaults (reset visibilidade)
       infoGeraisSection.classList.remove('hidden');
       premiumSection.classList.add('hidden');
       alertaAvulso.classList.add('hidden');
 
-      // Oculta campo de limpeza por padrão
+      // Oculta/reseta campos de limpeza manual por padrão
       valorPorPlacaGroup.classList.add('hidden');
       limpezaPreviewEl.classList.add('hidden');
+      notaDeslocamentoEl.classList.add('hidden');
+      inputValorPorPlaca.value = '';
+      checkDeslocamento.checked = false;
 
       if (tipo === 'Comum') {
         mostrarSecaoEspecial();
@@ -1073,11 +990,9 @@
         setPotenciaObrigatoria(false);
         camposPlacas.required     = true;
         projetosInclusos.required = false;
-
         // Exibe campo de precificação manual
         valorPorPlacaGroup.classList.remove('hidden');
         valorPorPlacaGroup.classList.add('fade-in');
-        atualizarPreviewLimpeza(); // atualiza prévia caso já haja valores
 
       } else if (tipo === 'ServicoEspecial') {
         mostrarSecaoEspecial();
@@ -1093,7 +1008,7 @@
       .forEach(r => r.addEventListener('change', atualizarFormulario));
 
     // ==========================================
-    // PRECIFICAÇÃO MANUAL — PRÉVIA DE LIMPEZA
+    // PRÉVIA DE LIMPEZA (tempo real)
     // ==========================================
     function fmt(valor) {
       return 'R$ ' + valor.toFixed(2)
@@ -1105,43 +1020,51 @@
       const tipo = document.querySelector('input[name="tipoCliente"]:checked')?.value;
       if (tipo !== 'Limpeza') return;
 
-      const placas = parseInt(camposPlacas.value) || 0;
-      const vpp    = parseFloat(inputValorPorPlaca.value) || 0;
+      const placas          = parseInt(camposPlacas.value)         || 0;
+      const vpp             = parseFloat(inputValorPorPlaca.value) || 0;
+      const comDeslocamento = checkDeslocamento.checked;
 
       if (placas > 0 && vpp > 0) {
-        // Mesma lógica do template n8n
-        const avulsa = (vpp * placas) / 2;
-        const tres   = avulsa * 6 / 7;
-        const cinco  = avulsa * 10 / 12;
+        // Prévia calculada sobre a base (sem deslocamento)
+        // O deslocamento real será somado pelo n8n com base na cidade
+        const totalBase = vpp * placas;
+        const avulsa    = totalBase / 2;
+        const tres      = avulsa * 6 / 7;
+        const cinco     = avulsa * 10 / 12;
 
-        document.getElementById('previewAvulsa').textContent      = '2× ' + fmt(avulsa);
-        document.getElementById('previewAvulsaTotal').textContent  = 'Total: ' + fmt(avulsa * 2);
-        document.getElementById('preview3x').textContent          = '7× ' + fmt(tres);
-        document.getElementById('preview3xTotal').textContent      = 'Total: ' + fmt(tres * 7);
-        document.getElementById('preview5x').textContent          = '12× ' + fmt(cinco);
-        document.getElementById('preview5xTotal').textContent      = 'Total: ' + fmt(cinco * 12);
+        const sufixo = comDeslocamento ? ' + desl.' : '';
+
+        document.getElementById('previewAvulsa').textContent     = '2× ' + fmt(avulsa);
+        document.getElementById('previewAvulsaTotal').textContent = 'Base: ' + fmt(totalBase) + sufixo;
+        document.getElementById('preview3x').textContent         = '7× ' + fmt(tres);
+        document.getElementById('preview3xTotal').textContent     = 'Base: ' + fmt(tres * 7) + sufixo;
+        document.getElementById('preview5x').textContent         = '12× ' + fmt(cinco);
+        document.getElementById('preview5xTotal').textContent     = 'Base: ' + fmt(cinco * 12) + sufixo;
+
+        // Nota de deslocamento
+        notaDeslocamentoEl.classList.toggle('hidden', !comDeslocamento);
 
         limpezaPreviewEl.classList.remove('hidden');
         limpezaPreviewEl.classList.add('fade-in');
       } else {
         limpezaPreviewEl.classList.add('hidden');
+        notaDeslocamentoEl.classList.add('hidden');
       }
     }
 
-    // Atualiza prévia ao digitar
-    inputValorPorPlaca.addEventListener('input', atualizarPreviewLimpeza);
-    camposPlacas.addEventListener('input', atualizarPreviewLimpeza);
+    // Listeners para atualizar a prévia
+    inputValorPorPlaca.addEventListener('input',  atualizarPreviewLimpeza);
+    camposPlacas.addEventListener('input',        atualizarPreviewLimpeza);
+    checkDeslocamento.addEventListener('change',  atualizarPreviewLimpeza);
 
     // ==========================================
     // SERVIÇOS AVULSOS
     // ==========================================
     function adicionarServico() {
       servicoCounter++;
-
       const servicoDiv = document.createElement('div');
       servicoDiv.className = 'servico-item fade-in';
       servicoDiv.id = `servico-${servicoCounter}`;
-
       servicoDiv.innerHTML = `
         <div class="servico-header">
           <span class="servico-numero">Serviço #${servicoCounter}</span>
@@ -1167,7 +1090,6 @@
           </div>
         </div>
       `;
-
       servicosList.appendChild(servicoDiv);
     }
 
@@ -1190,7 +1112,6 @@
         alert('Adicione pelo menos 1 serviço avulso.');
         return;
       }
-
       if (tipo === 'Limpeza') {
         if (!camposCidade.value.trim()) {
           alert('Cidade é obrigatória para proposta de limpeza.');
@@ -1201,7 +1122,6 @@
           return;
         }
       }
-
       if (tipo === 'ServicoEspecial') {
         const servicoEspecialVal = document.querySelector('input[name="servicoEspecial"]:checked')?.value;
         if (!servicoEspecialVal || servicoEspecialVal === 'nenhum') {
@@ -1214,16 +1134,25 @@
       const data = {};
 
       formData.forEach((value, key) => {
-        if (!key.startsWith('servico_')) {
+        if (!key.startsWith('servico_') && key !== 'considerarDeslocamento') {
           data[key] = value;
         }
       });
 
-      // Remove valorPorPlacaManual se não for limpeza ou se estiver vazio
-      if (tipo !== 'Limpeza' || !data.valorPorPlacaManual) {
-        delete data.valorPorPlacaManual;
+      // ── Campos específicos de Limpeza ──
+      if (tipo === 'Limpeza') {
+        // Valor por placa manual
+        const vpp = parseFloat(inputValorPorPlaca.value) || 0;
+        if (vpp > 0) {
+          data.valorPorPlacaManual = vpp;
+        } else {
+          delete data.valorPorPlacaManual;
+        }
+        // Checkbox deslocamento (booleano explícito)
+        data.considerarDeslocamento = checkDeslocamento.checked;
       } else {
-        data.valorPorPlacaManual = parseFloat(data.valorPorPlacaManual) || 0;
+        delete data.valorPorPlacaManual;
+        delete data.considerarDeslocamento;
       }
 
       // Serviços avulsos
@@ -1233,7 +1162,6 @@
         const nome      = formData.get(`servico_${id}_nome`);
         const descricao = formData.get(`servico_${id}_descricao`) || '';
         const valor     = parseFloat(formData.get(`servico_${id}_valor`)) || 0;
-
         if (nome && nome.trim() !== '' && valor > 0) {
           data.servicosAvulsos.push({ nome, descricao: descricao.trim(), valor });
         }
@@ -1253,7 +1181,6 @@
           const msg = document.getElementById('successMessage');
           msg.classList.remove('hidden');
           msg.classList.add('fade-in');
-
           setTimeout(() => {
             form.reset();
             servicosList.innerHTML = '';
