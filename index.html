@@ -448,6 +448,198 @@
       border-radius: 0 var(--radius-sm) 0 var(--radius-sm);
     }
 
+    /* -------- Proposta Personalizada -------- */
+    .personalizada-builder {
+      margin-top: var(--space-5);
+      padding-top: var(--space-5);
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .personalizada-builder-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: var(--space-3);
+    }
+
+    .personalizada-builder-header strong {
+      font-family: var(--font-display);
+      font-size: 13px;
+      color: var(--fg-2);
+    }
+
+    .personalizada-builder-count {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--fg-3);
+    }
+
+    .personalizada-empty {
+      padding: 18px;
+      border: 1px dashed var(--ink-300);
+      border-radius: var(--radius-md);
+      text-align: center;
+      font-size: 12px;
+      color: var(--fg-3);
+      background: var(--bg-paper);
+    }
+
+    .personalizada-card {
+      border: 1px solid var(--ink-300);
+      border-radius: var(--radius-md);
+      background: var(--white);
+      margin-bottom: var(--space-3);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .personalizada-card.is-highlighted {
+      border-color: var(--gauss-green);
+      box-shadow: 0 0 0 2px rgba(57,181,74,.10);
+    }
+
+    .personalizada-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 14px;
+      background: var(--bg-paper);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .personalizada-card-title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .personalizada-card-title strong {
+      font-family: var(--font-display);
+      font-size: 13px;
+      color: var(--fg-1);
+    }
+
+    .personalizada-card-title span {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .08em;
+      color: var(--gauss-green-700);
+    }
+
+    .personalizada-order-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .btn-order {
+      width: 30px;
+      height: 30px;
+      border: 1px solid var(--ink-300);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      color: var(--fg-2);
+      cursor: pointer;
+      font-size: 14px;
+      transition: all .15s ease;
+    }
+
+    .btn-order:hover:not(:disabled) {
+      border-color: var(--gauss-green);
+      color: var(--gauss-green-900);
+      background: var(--gauss-green-100);
+    }
+
+    .btn-order:disabled {
+      opacity: .35;
+      cursor: default;
+    }
+
+    .personalizada-card-body {
+      padding: 14px;
+    }
+
+    .personalizada-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .personalizada-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .personalizada-field {
+      margin-bottom: 13px;
+    }
+
+    .personalizada-field > label {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 11px;
+      color: var(--fg-2);
+      margin-bottom: 6px;
+    }
+
+    .personalizada-field select,
+    .personalizada-field input,
+    .personalizada-field textarea {
+      font-size: 13px;
+      padding: 10px 11px;
+    }
+
+    .personalizada-field textarea {
+      min-height: 84px;
+      resize: vertical;
+    }
+
+    .personalizada-toggles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-top: 4px;
+    }
+
+    .personalizada-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 10px;
+      border: 1px solid var(--ink-300);
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .personalizada-toggle input {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--gauss-green);
+    }
+
+    .personalizada-help {
+      margin-top: -5px;
+      margin-bottom: 12px;
+      font-size: 10px;
+      line-height: 1.45;
+      color: var(--fg-3);
+    }
+
+    @media (max-width: 640px) {
+      .personalizada-grid-2,
+      .personalizada-grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* -------- Utilities -------- */
     .hidden {
       display: none !important;
@@ -1075,6 +1267,18 @@
               </span>
             </label>
           </div>
+
+          <div class="personalizada-builder">
+            <div class="personalizada-builder-header">
+              <strong>Serviços selecionados</strong>
+              <span class="personalizada-builder-count" id="personalizadaBuilderCount">0 SERVIÇOS</span>
+            </div>
+            <div id="personalizadaCards">
+              <div class="personalizada-empty" id="personalizadaEmpty">
+                Selecione um ou mais serviços acima para começar a montar a proposta.
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- ALERTA MODO AVULSO -->
@@ -1277,6 +1481,8 @@
     const servicosEspecificosSection = document.getElementById('servicosEspecificosSection');
     const alertaAvulso = document.getElementById('alertaAvulso');
     const personalizadaSection = document.getElementById('personalizadaSection');
+    const personalizadaCards = document.getElementById('personalizadaCards');
+    const personalizadaBuilderCount = document.getElementById('personalizadaBuilderCount');
     const servicosList = document.getElementById('servicosList');
     const btnAddServico = document.getElementById('btnAddServico');
 
@@ -1392,6 +1598,271 @@
       radioServicoEspecial,
       radioPersonalizada
     ].forEach(r => r.addEventListener('change', atualizarFormulario));
+
+    // ==========================================
+    // CONSTRUTOR — PROPOSTA PERSONALIZADA
+    // ==========================================
+    const CATALOGO_PERSONALIZADO = {
+      MONITORAMENTO: {
+        nome: 'Monitoramento',
+        descricao: 'Acompanhamento remoto do sistema fotovoltaico.'
+      },
+      GARANTIA: {
+        nome: 'Garantia Estendida',
+        descricao: 'Cobertura e suporte técnico do sistema.'
+      },
+      LIMPEZA: {
+        nome: 'Limpeza',
+        descricao: 'Limpeza técnica dos módulos fotovoltaicos.'
+      },
+      MANUTENCAO: {
+        nome: 'Manutenção Preventiva',
+        descricao: 'Inspeção e manutenção preventiva do sistema.'
+      },
+      PERSONALIZADO: {
+        nome: 'Serviço Personalizado',
+        descricao: ''
+      }
+    };
+
+    let personalizadaOrdem = [];
+
+    function escHtml(valor) {
+      return String(valor ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function cardPersonalizadoHTML(codigo, indice) {
+      const base = CATALOGO_PERSONALIZADO[codigo];
+      const ehLivre = codigo === 'PERSONALIZADO';
+      const nome = base?.nome || codigo;
+      const descricao = base?.descricao || '';
+
+      return `
+        <article class="personalizada-card fade-in" data-codigo="${escHtml(codigo)}">
+          <div class="personalizada-card-head">
+            <div class="personalizada-card-title">
+              <span>SERVIÇO ${String(indice + 1).padStart(2, '0')}</span>
+              <strong>${escHtml(nome)}</strong>
+            </div>
+            <div class="personalizada-order-actions">
+              <button type="button" class="btn-order" data-mover="cima" title="Mover para cima">↑</button>
+              <button type="button" class="btn-order" data-mover="baixo" title="Mover para baixo">↓</button>
+            </div>
+          </div>
+
+          <div class="personalizada-card-body">
+            ${ehLivre ? `
+              <div class="personalizada-field">
+                <label>Nome do serviço</label>
+                <input type="text" data-campo="nome" value="" placeholder="Ex: Substituição de inversor">
+              </div>
+            ` : ''}
+
+            <div class="personalizada-grid-2">
+              <div class="personalizada-field">
+                <label>Preço</label>
+                <select data-campo="precoModo">
+                  ${ehLivre ? '' : '<option value="automatico">Automático — regra GAUSS</option>'}
+                  <option value="manual" ${ehLivre ? 'selected' : ''}>Manual</option>
+                </select>
+              </div>
+
+              <div class="personalizada-field personalizada-valor-manual ${ehLivre ? '' : 'hidden'}">
+                <label>Valor manual (R$)</label>
+                <input type="number" data-campo="valorManual" min="0" step="0.01" placeholder="0,00">
+              </div>
+            </div>
+
+            <div class="personalizada-grid-2">
+              <div class="personalizada-field">
+                <label>Desconto (%)</label>
+                <input type="number" data-campo="desconto" min="0" max="100" step="0.01" value="0">
+              </div>
+
+              <div class="personalizada-field">
+                <label>Parcelamento</label>
+                <select data-campo="parcelamentoModo">
+                  <option value="automatico">Automático</option>
+                  <option value="manual">Manual</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="personalizada-field personalizada-parcelas-manual hidden">
+              <label>Quantidade de parcelas</label>
+              <input type="number" data-campo="parcelas" min="1" max="24" step="1" placeholder="Ex: 12">
+            </div>
+
+            <div class="personalizada-field">
+              <label>Descrição</label>
+              <select data-campo="descricaoModo">
+                ${ehLivre ? '' : '<option value="padrao">Descrição padrão GAUSS</option>'}
+                <option value="personalizada" ${ehLivre ? 'selected' : ''}>Descrição personalizada</option>
+              </select>
+            </div>
+
+            <div class="personalizada-field personalizada-descricao ${ehLivre ? '' : 'hidden'}">
+              <label>Texto / itens incluídos</label>
+              <textarea data-campo="descricaoTexto" placeholder="Digite a descrição. Você pode separar os itens por linha.">${escHtml(descricao)}</textarea>
+            </div>
+
+            <div class="personalizada-help">
+              Preço manual e alterações de descrição serão aplicados somente nesta proposta e não alterarão as regras padrão.
+            </div>
+
+            <div class="personalizada-toggles">
+              <label class="personalizada-toggle">
+                <input type="checkbox" data-campo="destaque">
+                Destacar no PDF
+              </label>
+              <label class="personalizada-toggle">
+                <input type="checkbox" data-campo="exibirPreco" checked>
+                Exibir preço
+              </label>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function lerEstadoCardsPersonalizados() {
+      const estado = {};
+      personalizadaCards.querySelectorAll('.personalizada-card').forEach(card => {
+        const codigo = card.dataset.codigo;
+        estado[codigo] = {};
+        card.querySelectorAll('[data-campo]').forEach(campo => {
+          estado[codigo][campo.dataset.campo] = campo.type === 'checkbox' ? campo.checked : campo.value;
+        });
+      });
+      return estado;
+    }
+
+    function restaurarEstadoCard(card, estado) {
+      if (!estado) return;
+      card.querySelectorAll('[data-campo]').forEach(campo => {
+        const valor = estado[campo.dataset.campo];
+        if (valor === undefined) return;
+        if (campo.type === 'checkbox') campo.checked = Boolean(valor);
+        else campo.value = valor;
+      });
+    }
+
+    function atualizarCamposCard(card) {
+      const precoModo = card.querySelector('[data-campo="precoModo"]')?.value;
+      const parcelamentoModo = card.querySelector('[data-campo="parcelamentoModo"]')?.value;
+      const descricaoModo = card.querySelector('[data-campo="descricaoModo"]')?.value;
+      const destaque = card.querySelector('[data-campo="destaque"]')?.checked;
+
+      card.querySelector('.personalizada-valor-manual')?.classList.toggle('hidden', precoModo !== 'manual');
+      card.querySelector('.personalizada-parcelas-manual')?.classList.toggle('hidden', parcelamentoModo !== 'manual');
+      card.querySelector('.personalizada-descricao')?.classList.toggle('hidden', descricaoModo !== 'personalizada');
+      card.classList.toggle('is-highlighted', Boolean(destaque));
+    }
+
+    function renderizarPersonalizada(preservar = true) {
+      const estado = preservar ? lerEstadoCardsPersonalizados() : {};
+      personalizadaCards.innerHTML = '';
+
+      if (personalizadaOrdem.length === 0) {
+        personalizadaCards.innerHTML = `
+          <div class="personalizada-empty" id="personalizadaEmpty">
+            Selecione um ou mais serviços acima para começar a montar a proposta.
+          </div>`;
+      } else {
+        personalizadaOrdem.forEach((codigo, indice) => {
+          personalizadaCards.insertAdjacentHTML('beforeend', cardPersonalizadoHTML(codigo, indice));
+          const card = personalizadaCards.lastElementChild;
+          restaurarEstadoCard(card, estado[codigo]);
+          atualizarCamposCard(card);
+        });
+
+        const cards = [...personalizadaCards.querySelectorAll('.personalizada-card')];
+        cards.forEach((card, indice) => {
+          const botoes = card.querySelectorAll('.btn-order');
+          if (botoes[0]) botoes[0].disabled = indice === 0;
+          if (botoes[1]) botoes[1].disabled = indice === cards.length - 1;
+        });
+      }
+
+      personalizadaBuilderCount.textContent = `${personalizadaOrdem.length} ${personalizadaOrdem.length === 1 ? 'SERVIÇO' : 'SERVIÇOS'}`;
+    }
+
+    document.querySelectorAll('.personalizada-servico').forEach(check => {
+      check.addEventListener('change', () => {
+        const codigo = check.value;
+        if (check.checked && !personalizadaOrdem.includes(codigo)) {
+          personalizadaOrdem.push(codigo);
+        } else if (!check.checked) {
+          personalizadaOrdem = personalizadaOrdem.filter(item => item !== codigo);
+        }
+        renderizarPersonalizada(true);
+      });
+    });
+
+    personalizadaCards.addEventListener('change', e => {
+      const card = e.target.closest('.personalizada-card');
+      if (card) atualizarCamposCard(card);
+    });
+
+    personalizadaCards.addEventListener('click', e => {
+      const botao = e.target.closest('[data-mover]');
+      if (!botao) return;
+
+      const card = botao.closest('.personalizada-card');
+      const codigo = card.dataset.codigo;
+      const atual = personalizadaOrdem.indexOf(codigo);
+      const destino = botao.dataset.mover === 'cima' ? atual - 1 : atual + 1;
+      if (destino < 0 || destino >= personalizadaOrdem.length) return;
+
+      const estado = lerEstadoCardsPersonalizados();
+      [personalizadaOrdem[atual], personalizadaOrdem[destino]] = [personalizadaOrdem[destino], personalizadaOrdem[atual]];
+      renderizarPersonalizada(false);
+      personalizadaCards.querySelectorAll('.personalizada-card').forEach(novoCard => {
+        restaurarEstadoCard(novoCard, estado[novoCard.dataset.codigo]);
+        atualizarCamposCard(novoCard);
+      });
+    });
+
+    function coletarServicosPersonalizados() {
+      return [...personalizadaCards.querySelectorAll('.personalizada-card')].map((card, indice) => {
+        const codigo = card.dataset.codigo;
+        const get = nome => card.querySelector(`[data-campo="${nome}"]`);
+        const nomeLivre = get('nome')?.value?.trim();
+        const precoModo = get('precoModo')?.value || 'automatico';
+        const valorManual = parseFloat(get('valorManual')?.value);
+        const desconto = parseFloat(get('desconto')?.value) || 0;
+        const parcelamentoModo = get('parcelamentoModo')?.value || 'automatico';
+        const parcelas = parseInt(get('parcelas')?.value) || null;
+        const descricaoModo = get('descricaoModo')?.value || 'padrao';
+        const descricaoTexto = get('descricaoTexto')?.value?.trim() || null;
+
+        return {
+          id: `servico-${indice + 1}`,
+          codigo,
+          nome: codigo === 'PERSONALIZADO' ? nomeLivre : CATALOGO_PERSONALIZADO[codigo].nome,
+          preco: {
+            modo: precoModo,
+            valorManual: precoModo === 'manual' && Number.isFinite(valorManual) ? valorManual : null,
+            descontoPercentual: desconto
+          },
+          parcelamento: {
+            modo: parcelamentoModo,
+            quantidade: parcelamentoModo === 'manual' ? parcelas : null
+          },
+          descricao: {
+            modo: descricaoModo,
+            texto: descricaoModo === 'personalizada' ? descricaoTexto : null
+          },
+          destaque: Boolean(get('destaque')?.checked),
+          exibirPreco: Boolean(get('exibirPreco')?.checked)
+        };
+      });
+    }
 
     // ==========================================
     // PRÉVIA DE LIMPEZA (tempo real)
@@ -1516,6 +1987,33 @@
         }
       }
 
+      if (tipo === 'Personalizada') {
+        const servicosPersonalizados = coletarServicosPersonalizados();
+        if (servicosPersonalizados.length === 0) {
+          alert('Selecione pelo menos 1 serviço para a proposta personalizada.');
+          return;
+        }
+
+        for (const servico of servicosPersonalizados) {
+          if (!servico.nome) {
+            alert('Informe o nome do serviço personalizado.');
+            return;
+          }
+          if (servico.preco.modo === 'manual' && (servico.preco.valorManual === null || servico.preco.valorManual < 0)) {
+            alert(`Informe um valor manual válido para ${servico.nome}.`);
+            return;
+          }
+          if (servico.parcelamento.modo === 'manual' && !servico.parcelamento.quantidade) {
+            alert(`Informe a quantidade de parcelas para ${servico.nome}.`);
+            return;
+          }
+        }
+
+        // O construtor já está funcional, mas o backend ainda será preparado na próxima etapa.
+        alert('Construtor da proposta personalizada pronto. Na próxima etapa vamos conectar este novo formato ao n8n e ao PDF.');
+        return;
+      }
+
       const formData = new FormData(form);
       const data = {};
 
@@ -1617,6 +2115,8 @@
           form.reset();
           servicosList.innerHTML = '';
           servicoCounter = 0;
+          personalizadaOrdem = [];
+          renderizarPersonalizada(false);
 
           form.classList.remove('hidden');
           msg.classList.add('hidden');
