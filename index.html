@@ -1940,16 +1940,75 @@
             body: JSON.stringify(payloadPersonalizada)
           });
 
-          // Nesta etapa, o objetivo é confirmar que a entrada chegou ao n8n.
-          // O restante do workflow ainda não possui a rota de PDF Personalizada.
           if (!response.ok) {
-            throw new Error(`Backend respondeu com status ${response.status}`);
+            throw new Error(
+              `Erro ao gerar proposta: ${response.status}`
+            );
           }
 
-          alert('Proposta personalizada enviada ao n8n. Confira a execução do node Normalizar Entrada. O PDF ainda não está habilitado para esta modalidade.');
+          // Receber o PDF
+          const pdf = await response.blob();
+
+          // Recuperar o nome do arquivo
+          const disposition =
+            response.headers.get('Content-Disposition') || '';
+
+          const nomeUTF8 =
+            disposition.match(/filename\*=UTF-8''([^;]+)/i);
+
+          const nomeSimples =
+            disposition.match(/filename="([^"]+)"/i);
+
+          const nomeArquivo = nomeUTF8
+            ? decodeURIComponent(nomeUTF8[1])
+            : nomeSimples
+              ? nomeSimples[1]
+              : 'Proposta de Pós-venda - GAUSS.pdf';
+
+          // Baixar o PDF automaticamente
+          const url = URL.createObjectURL(pdf);
+          const link = document.createElement('a');
+
+          link.href = url;
+          link.download = nomeArquivo;
+
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+
+          setTimeout(() => {
+            URL.revokeObjectURL(url);
+          }, 60000);
+
+          // Exibir mensagem de sucesso
+          form.classList.add('hidden');
+
+          const msg =
+            document.getElementById('successMessage');
+
+          msg.classList.remove('hidden');
+          msg.classList.add('fade-in');
+
+          setTimeout(() => {
+            form.reset();
+            servicosList.innerHTML = '';
+            servicoCounter = 0;
+            personalizadaOrdem = [];
+            renderizarPersonalizada(false);
+
+            form.classList.remove('hidden');
+            msg.classList.add('hidden');
+
+            atualizarFormulario();
+          }, 3000);
+
         } catch (err) {
-          console.error('Erro ao enviar proposta personalizada:', err);
-          alert('A proposta foi enviada para teste, mas o workflow ainda não consegue concluir o PDF Personalizado. Confira a execução no n8n.');
+          console.error('Erro:', err);
+
+          alert(
+            'Não foi possível gerar a proposta. ' +
+            'Verifique a conexão com o servidor.'
+          );
         }
 
         return;
