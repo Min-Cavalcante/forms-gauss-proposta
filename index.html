@@ -2022,8 +2022,7 @@
           }
         }
 
-        // Monta o contrato de dados da proposta personalizada.
-        // O envio ao backend permanece bloqueado até o n8n ser preparado para este formato.
+        // Monta o contrato de dados da proposta personalizada e envia ao backend.
         const payloadPersonalizada = {
           tipoCliente: 'Personalizada',
           nomeCliente: document.getElementById('nomeCliente').value.trim(),
@@ -2038,11 +2037,34 @@
               modo: 'padrao',
               texto: null
             }
-          }
+          },
+          servicosAvulsos: [],
+          servidorUtilizado: servidorAtivo
         };
 
         console.log('Payload Personalizada:', payloadPersonalizada);
-        alert('Proposta personalizada validada e JSON montado com sucesso. O envio continua bloqueado até prepararmos o n8n.');
+
+        try {
+          const response = await fetch('/api/propostas', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payloadPersonalizada)
+          });
+
+          // Nesta etapa, o objetivo é confirmar que a entrada chegou ao n8n.
+          // O restante do workflow ainda não possui a rota de PDF Personalizada.
+          if (!response.ok) {
+            throw new Error(`Backend respondeu com status ${response.status}`);
+          }
+
+          alert('Proposta personalizada enviada ao n8n. Confira a execução do node Normalizar Entrada. O PDF ainda não está habilitado para esta modalidade.');
+        } catch (err) {
+          console.error('Erro ao enviar proposta personalizada:', err);
+          alert('A proposta foi enviada para teste, mas o workflow ainda não consegue concluir o PDF Personalizado. Confira a execução no n8n.');
+        }
+
         return;
       }
 
