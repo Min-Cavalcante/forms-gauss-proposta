@@ -943,24 +943,17 @@
               </div>
 
               <!-- PROPOSTA PERSONALIZADA -->
-<div class="radio-option servico-especial" style="grid-column: 1 / -1;">
-  <input
-    type="radio"
-    id="tipoPersonalizada"
-    name="tipoCliente"
-    value="Personalizada"
-  >
-
-  <label for="tipoPersonalizada" class="radio-label">
-    <svg viewBox="0 0 24 24">
-      <path d="M12 3v18" />
-      <path d="M3 12h18" />
-      <circle cx="12" cy="12" r="8" />
-    </svg>
-
-    Proposta Personalizada
-  </label>
-</div>
+              <div class="radio-option servico-especial" style="grid-column: 1 / -1;">
+                <input type="radio" id="tipoPersonalizada" name="tipoCliente" value="Personalizada">
+                <label for="tipoPersonalizada" class="radio-label">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 3v18" />
+                    <path d="M3 12h18" />
+                    <circle cx="12" cy="12" r="8" />
+                  </svg>
+                  Proposta Personalizada
+                </label>
+              </div>
 
             </div>
           </div>
@@ -1015,6 +1008,72 @@
                 Garantia Estendida, oferecendo limpeza com desconto
               </label>
             </div>
+          </div>
+        </div>
+
+        <!-- CONSTRUTOR DA PROPOSTA PERSONALIZADA -->
+        <div class="section hidden" id="personalizadaSection">
+          <h2 class="section-title">Construtor da proposta</h2>
+
+          <div class="alert">
+            <div class="alert-icon">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <line x1="12" y1="8" x2="12" y2="13" />
+                <circle cx="12" cy="16" r="0.6" fill="currentColor" />
+              </svg>
+            </div>
+            <div>
+              <div class="alert-title">Monte a proposta livremente</div>
+              <div class="alert-text">
+                Selecione os serviços que deseja incluir. Depois será possível personalizar valores, descontos,
+                descrições e condições de cada serviço.
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Serviços disponíveis</label>
+
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="personalizada-servico" value="MONITORAMENTO">
+              <span class="checkbox-text">
+                Monitoramento
+                <small>Acompanhamento remoto do sistema fotovoltaico</small>
+              </span>
+            </label>
+
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="personalizada-servico" value="GARANTIA">
+              <span class="checkbox-text">
+                Garantia Estendida
+                <small>Cobertura e suporte técnico do sistema</small>
+              </span>
+            </label>
+
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="personalizada-servico" value="LIMPEZA">
+              <span class="checkbox-text">
+                Limpeza
+                <small>Planos de limpeza dos módulos fotovoltaicos</small>
+              </span>
+            </label>
+
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="personalizada-servico" value="MANUTENCAO">
+              <span class="checkbox-text">
+                Manutenção Preventiva
+                <small>Inspeção e manutenção preventiva do sistema</small>
+              </span>
+            </label>
+
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="personalizada-servico" value="PERSONALIZADO">
+              <span class="checkbox-text">
+                Serviço Personalizado
+                <small>Crie um serviço específico para esta proposta</small>
+              </span>
+            </label>
           </div>
         </div>
 
@@ -1217,6 +1276,7 @@
     const premiumSection = document.getElementById('premiumSection');
     const servicosEspecificosSection = document.getElementById('servicosEspecificosSection');
     const alertaAvulso = document.getElementById('alertaAvulso');
+    const personalizadaSection = document.getElementById('personalizadaSection');
     const servicosList = document.getElementById('servicosList');
     const btnAddServico = document.getElementById('btnAddServico');
 
@@ -1260,6 +1320,7 @@
       infoGeraisSection.classList.remove('hidden');
       premiumSection.classList.add('hidden');
       alertaAvulso.classList.add('hidden');
+      personalizadaSection.classList.add('hidden');
 
       // Oculta/reseta campos de limpeza manual por padrão
       valorPorPlacaGroup.classList.add('hidden');
@@ -1311,17 +1372,26 @@
         setPotenciaObrigatoria(false);
         camposPlacas.required = true;
         projetosInclusos.required = false;
+
+      } else if (tipo === 'Personalizada') {
+        ocultarSecaoEspecial();
+        personalizadaSection.classList.remove('hidden');
+        personalizadaSection.classList.add('fade-in');
+        camposCidade.required = true;
+        setPotenciaObrigatoria(false);
+        camposPlacas.required = false;
+        projetosInclusos.required = false;
       }
     }
 
     [
-  radioComum,
-  radioPremium,
-  radioAvulso,
-  radioLimpeza,
-  radioServicoEspecial,
-  radioPersonalizada
-].forEach(r => r.addEventListener('change', atualizarFormulario));
+      radioComum,
+      radioPremium,
+      radioAvulso,
+      radioLimpeza,
+      radioServicoEspecial,
+      radioPersonalizada
+    ].forEach(r => r.addEventListener('change', atualizarFormulario));
 
     // ==========================================
     // PRÉVIA DE LIMPEZA (tempo real)
