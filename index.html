@@ -1718,7 +1718,7 @@
             <div class="personalizada-toggles">
               <label class="personalizada-toggle">
                 <input type="checkbox" data-campo="destaque">
-                Destacar no PDF
+                Destacar como opção recomendada
               </label>
               <label class="personalizada-toggle">
                 <input type="checkbox" data-campo="exibirPreco" checked>
@@ -1806,7 +1806,20 @@
 
     personalizadaCards.addEventListener('change', e => {
       const card = e.target.closest('.personalizada-card');
-      if (card) atualizarCamposCard(card);
+      if (!card) return;
+
+      // Apenas um serviço pode ser destacado como opção recomendada.
+      if (e.target.matches('[data-campo="destaque"]') && e.target.checked) {
+        personalizadaCards.querySelectorAll('[data-campo="destaque"]').forEach(check => {
+          if (check !== e.target) {
+            check.checked = false;
+            const outroCard = check.closest('.personalizada-card');
+            if (outroCard) atualizarCamposCard(outroCard);
+          }
+        });
+      }
+
+      atualizarCamposCard(card);
     });
 
     personalizadaCards.addEventListener('click', e => {
@@ -2009,8 +2022,27 @@
           }
         }
 
-        // O construtor já está funcional, mas o backend ainda será preparado na próxima etapa.
-        alert('Construtor da proposta personalizada pronto. Na próxima etapa vamos conectar este novo formato ao n8n e ao PDF.');
+        // Monta o contrato de dados da proposta personalizada.
+        // O envio ao backend permanece bloqueado até o n8n ser preparado para este formato.
+        const payloadPersonalizada = {
+          tipoCliente: 'Personalizada',
+          nomeCliente: document.getElementById('nomeCliente').value.trim(),
+          cidade: camposCidade.value.trim(),
+          potencia: camposPotencia.value ? parseFloat(camposPotencia.value) : null,
+          placas: camposPlacas.value ? parseInt(camposPlacas.value) : null,
+          personalizada: {
+            titulo: 'Proposta de Serviços de Pós-venda',
+            servicos: servicosPersonalizados,
+            observacoes: '',
+            condicoesComerciais: {
+              modo: 'padrao',
+              texto: null
+            }
+          }
+        };
+
+        console.log('Payload Personalizada:', payloadPersonalizada);
+        alert('Proposta personalizada validada e JSON montado com sucesso. O envio continua bloqueado até prepararmos o n8n.');
         return;
       }
 
