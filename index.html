@@ -942,6 +942,26 @@
                 </label>
               </div>
 
+              <!-- PROPOSTA PERSONALIZADA -->
+<div class="radio-option servico-especial" style="grid-column: 1 / -1;">
+  <input
+    type="radio"
+    id="tipoPersonalizada"
+    name="tipoCliente"
+    value="Personalizada"
+  >
+
+  <label for="tipoPersonalizada" class="radio-label">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 3v18" />
+      <path d="M3 12h18" />
+      <circle cx="12" cy="12" r="8" />
+    </svg>
+
+    Proposta Personalizada
+  </label>
+</div>
+
             </div>
           </div>
         </div>
@@ -1191,6 +1211,7 @@
     const radioAvulso = document.getElementById('tipoAvulso');
     const radioLimpeza = document.getElementById('tipoLimpeza');
     const radioServicoEspecial = document.getElementById('tipoServicoEspecial');
+    const radioPersonalizada = document.getElementById('tipoPersonalizada');
 
     const infoGeraisSection = document.getElementById('infoGeraisSection');
     const premiumSection = document.getElementById('premiumSection');
@@ -1293,8 +1314,14 @@
       }
     }
 
-    [radioComum, radioPremium, radioAvulso, radioLimpeza, radioServicoEspecial]
-      .forEach(r => r.addEventListener('change', atualizarFormulario));
+    [
+  radioComum,
+  radioPremium,
+  radioAvulso,
+  radioLimpeza,
+  radioServicoEspecial,
+  radioPersonalizada
+].forEach(r => r.addEventListener('change', atualizarFormulario));
 
     // ==========================================
     // PRÉVIA DE LIMPEZA (tempo real)
