@@ -1391,7 +1391,7 @@
     // CONFIGURAÇÃO DE SERVIDORES
     // ==========================================
     const SERVIDORES = {
-      gauss: 'https://n8n.gaussenergia.com.br/webhook-test/gauss-proposta',
+      gauss: 'https://n8n.gaussenergia.com.br/webhook/gauss-proposta',
       local: 'https://n8n.mincavalcante.dev/webhook/proposta-posvenda'
     };
     let servidorAtivo = 'gauss';
@@ -1407,11 +1407,11 @@
       if (servidor === 'gauss') {
         btnGauss.classList.add('active-gauss');
         serverDot.className = 'server-dot dot-gauss';
-        serverUrl.textContent = 'n8n.gaussenergia.com.br/webhook/...';
+        serverUrl.textContent = 'n8n.gaussenergia.com.br/webhook/gauss-proposta';
       } else {
         btnLocal.classList.add('active-local');
         serverDot.className = 'server-dot dot-local';
-        serverUrl.textContent = 'ngrok-free.dev/webhook/...';
+        serverUrl.textContent = 'n8n.mincavalcante.dev/webhook/proposta-posvenda';
       }
     }
     function getWebhookUrl() { return SERVIDORES[servidorAtivo]; }
@@ -1931,7 +1931,7 @@
         console.log('Payload Personalizada:', payloadPersonalizada);
 
         try {
-          const endpoint = servidorAtivo === 'local' ? getWebhookUrl() : '/api/propostas';
+          const endpoint = getWebhookUrl();
           const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
@@ -2038,7 +2038,7 @@
       data.servidorUtilizado = servidorAtivo;
 
       try {
-        const endpoint = servidorAtivo === 'local' ? getWebhookUrl() : '/api/propostas';
+        const endpoint = getWebhookUrl();
           const response = await fetch(endpoint, {
           method: 'POST',
           headers: {
