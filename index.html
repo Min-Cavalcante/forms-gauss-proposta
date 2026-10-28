@@ -1392,7 +1392,7 @@
     // ==========================================
     const SERVIDORES = {
       gauss: 'https://n8n.gaussenergia.com.br/webhook/gauss-proposta',
-      local: 'https://n8n.mincavalcante.dev/webhook/proposta-posvenda2'
+      local: 'https://n8n.mincavalcante.dev/webhook/proposta-posvenda'
     };
     let servidorAtivo = 'gauss';
 
@@ -1411,7 +1411,7 @@
       } else {
         btnLocal.classList.add('active-local');
         serverDot.className = 'server-dot dot-local';
-        serverUrl.textContent = 'https://n8n.mincavalcante.dev/webhook/proposta-posvenda2';
+        serverUrl.textContent = 'https://n8n.mincavalcante.dev/webhook/proposta-posvenda';
       }
     }
     function getWebhookUrl() { return SERVIDORES[servidorAtivo]; }
